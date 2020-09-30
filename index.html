@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme='light'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <script src="https://kit.fontawesome.com/ccc8f7a871.js" crossorigin="anonymous"></script>
+    <title>GIFOS project</title>
+</head>
+<body>
+    <header>
+        <img id="logo" class="logo" src="images/logoLightMode.svg" alt="logo">
+        <input class="menu-btn" type="checkbox" id="menu-btn">
+        <label class="menu-icon" for="menu-btn">
+            <span class="nav-icon"></span>
+        </label>
+        <nav>
+            <ul>
+                <li>
+                    <input type="checkbox" id="switch" name="theme">
+                    <label for="switch" id="mode"> 
+                        Modo Nocturno
+                    </label> 
+                </li>
+                <li><a href="#">Favoritos</a></li>
+                <li><a href="#">Mis GIFOS</a></li>
+                <!-- botón disponible sólo para versión en desktop -->
+                <li>
+                    <button class="btn-crear-gifo">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </li>
+            </ul>
+        </nav>
+    </header>    
+    <!-- Fin header section -->
+    <main>
+        <section class="introduction">
+            <h1>Inspírate, busca, guarda, y crea los mejores <span>gifos</span></h1>
+            <div class="sectionSearch">
+                <img src="images/ilustra_header.svg" alt="image-header">
+                <div class="searchCtn">
+                    <div id ="searchBarCtn" class="searchBar">
+                        <div id="inputCtn">
+                            <i id="crossIcon" class="fas fa-times"></i>
+                            <input id="searchInput" class="search" type="text"  placeholder="Busca GIFOS y más">
+                            <i id="lensIcon" class="fas fa-search"></i>
+                            <label for="search"></label>
+                        </div>
+                        <!-- contenedor creado para apendear via JS las palabras sugeridas -->
+                        <div id="suggestionCtn"></div>
+                    </div>
+                </div>
+            </div>
+            <article id="trendingWordsCtn" class="trendings">
+                <h3>Trending:</h3>
+            </article>
+        </section>
+        <section id="resultSearch" class="searchResults" >
+            <h2 id="searchTitle"></h2>
+            <!-- tarjeta gif -->
+            <div id="resultCtn">
+                <template id="gifCardTemplate"> 
+                    <article class="gifContainer">
+                        <div class="gifInfo">
+                            <h5 class="gifTitle"></h5>
+                            <span class="gifUser"></span>
+                        </div>
+                        <div class="loadedGifCtn">
+                            <img class="loadedGif" src="" alt="">
+                        </div>
+                        <div class="gifBtns">
+                            <button class="gifFav">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="gifDownload">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="gifExpand">
+                                <i class="fas fa-expand-alt"></i>
+                            </button>
+                        </div>
+                        <div class="filterGif"></div>
+                    </article>
+                </template>
+            </div>
+            <article class="verMasBtn">
+                <button>Ver más</button> 
+            </article>
+        </section>
+        <section class="trend-gifos">
+            <h2>Trending GIFOS</h2>
+            <p>Mira los últimos <br>GIFOS de nuestra comunidad.</p>
+            <div class="carouselWrapper">
+                <button class="buttonSlider">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel">
+                    <img class="carouselImage" src="images/cat.gif" alt="gif">
+                    <img class="carouselImage" src="images/stevie-wonder.gif" alt="gif">
+                    <img class="carouselImage" src="images/lady-gaga.gif" alt="gif">
+                </div>
+                <button class="buttonSlider">
+                    <i class="fas fa-chevron-right"></i>
+                </button> 
+            </div>   
+        </section>
+    </main>
+    <!-- fin main section -->
+    <footer>
+        <section class="socialNetworks">
+            <h4>Redes Sociales</h4>
+            <article class="linksNetworks">
+                <h3>Compartir en:</h3>
+                <div>
+                    <a href="https://www.facebook.com/Acamica.org/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com/Acamica_com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.instagram.com/acamica/" target="_blank"><i class="fab fa-instagram"></i></a>
+                </div>
+            </article>
+            <article class="rights">
+                <h6>&copy; GIFOS 2020 All Rights Reserved.</h6>
+            </article>
+        </section>
+    </footer>
+    <!-- fin footer section -->
+    <script src="js/script.js"></script>
+    <script src="js/modoNocturno.js"></script>
+</body>
+</html>
