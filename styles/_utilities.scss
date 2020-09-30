@@ -1,0 +1,55 @@
+%menu-hamburguesa {
+    background: var(--primary-color);
+    content: "";
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    transition: all .5s ease-out;
+}
+
+//chequear si puedo usarlos ?)
+@mixin behave-vertical {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+  
+@mixin behave-horizontal {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+  
+@mixin word-bundle($font-size, $color, $font-weight, $line-height) {
+    font-size: $font-size;
+    color: $color;
+    font-weight: $font-weight;
+    line-height: $line-height;
+}
+
+$breakpoint-xlg: 1440px;
+$breakpoint-lg: 1024px;
+$breakpoint-md: 760px;
+$breakpoint-sm: 600px;
+
+@mixin respond-to($medias...) {
+    @each $media in $medias {
+        @if $media == xlg-screen {
+            @media screen and (min-width: $breakpoint-xlg) { @content; }
+        }
+        @else if $media == desktop-screen {
+            @media (min-width: $breakpoint-lg) { @content; }
+        }
+        @else if $media == tablet-screen {
+            @media (min-width: $breakpoint-md) and (max-width: $breakpoint-lg) { @content; }
+        }
+        @else if $media == mobile-screen {
+            @media (min-width: $breakpoint-sm) and (max-width: $breakpoint-md) { @content; }
+        }
+    }
+}
+
+// and (max-width: $breakpoint-xlg)

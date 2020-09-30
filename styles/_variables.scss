@@ -1,0 +1,28 @@
+//colores
+
+html {
+    --primary-color: #572EE5;
+    --secondary-color: #50E3C2;
+    --tertiary-color: #9CAFC3;
+
+    --bg-menu: rgba(87,46,229,0.90);
+    --bg-cards-hover:  rgba(87,46,229,0.70);
+    --bg-carousel: #F3F5F8;
+    --bg: #FFFFFF;
+    --bg-border: #572EE5;
+    --deselect-icons-color: rgba(87,46,229,0.70);
+
+    --text-color: #000000;
+    --icon-hover-color: #FFFFFF;
+}
+
+html[data-theme='dark']{
+    --bg: #37383C;
+    --bg-menu: #000000;
+    --bg-carousel: #222326;
+    --bg-border: #000000;
+
+    --primary-color: #FFFFFF;
+    --text-color: #FFFFFF;
+    --icon-hover-color: #000000;
+}
