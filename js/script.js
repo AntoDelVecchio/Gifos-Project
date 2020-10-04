@@ -3,7 +3,7 @@ const apiKey = 'R4KtuKL0O6AKONW0nssK7Y06CXL1I4bc';
 
 //searchBar
 
-//llamo el id del contenedor de la search bar, al contenedor del input e images, y a las images.  
+//llamo el id del contenedor de la search bar, al contenedor del input e images, y a las images.
 let searchBarCtn = document.getElementById('searchBarCtn');
 let inputCtn = document.getElementById('inputCtn');
 let searchInput = document.getElementById('searchInput');
@@ -17,17 +17,20 @@ searchInput.addEventListener('keyup', autoCompletar);
 searchBarCtn.addEventListener('focusin', iconsSwitch);
 searchBarCtn.addEventListener('focusout', beforeSwitch);
 
-let searchSuggestionsCtn = document.getElementById('suggestionCtn'); //se trae el contenedor donde van a mostrarse la palabras sugeridas
+let searchSuggestionsCtn = document.getElementById('suggestionsCtn'); //se trae el contenedor donde van a mostrarse la palabras sugeridas
+let NoSearchResultsCtn = document.getElementById('NoSearchResultsCtn');
 
 //al levantar la tecla, la funcion autocompletar busca sugerencias
 async function autoCompletar() {
     try {
         let searchWords = await fetch(`https://api.giphy.com/v1/gifs/search/tags?q=${this.value}&api_key=${apiKey}`); //llamada al endpoint de autocompletar para traer las etiquetas
-           
+
         let response = await searchWords.json(); //parseamos las respuestas obtenidas
 
-        searchSuggestionsCtn.innerHTML = ''; //se vacía por completo el contenedor 
-        
+        console.log(response);
+
+        searchSuggestionsCtn.innerHTML = ''; //se vacía por completo el contenedor
+
         //por cada sugerencia se crea un div contendor juntos con su id.
         response.data.forEach(element => {
             let suggestionBox = document.createElement('div');
@@ -36,8 +39,9 @@ async function autoCompletar() {
 
             //se le apendea una imagen de lupa a cada div
             let suggestionImg = document.createElement('img');
-            suggestionImg.setAttribute('src', 'images/icon-search-active.svg');
-            suggestionImg.style.width = '1rem';
+            suggestionImg.setAttribute('src', 'images/lensSuggestions.svg');
+            suggestionImg.style.width = '1.2rem';
+            suggestionImg.alt = 'image'
             suggestionBox.appendChild(suggestionImg); //se apendea la imagen al div contenedor.
 
             //Buscar sugerencias
@@ -46,7 +50,7 @@ async function autoCompletar() {
             let suggestedWord = document.createElement('p');
             suggestionBox.appendChild(suggestedWord);
             //se muestra en el html.
-            suggestedWord.textContent = suggestion;
+           suggestedWord.textContent = suggestion;
 
             suggestionBox.addEventListener('mousedown', () => {
                 searchInput.value = suggestion; //autocompleta la barra con la palabra sugerida clickeada.
@@ -54,24 +58,64 @@ async function autoCompletar() {
             });
         });
 
+        // si el array de objetos está vacío muestra una image y un span avisando.
+        // if(response.data.length === 0){
+
+        //     NoSearchResultsCtn.style.display = 'flex';
+        //     moreBtn.style.display = 'none';
+
+        // }else{
+
+        //     NoSearchResultsCtn.style.display = 'none';
+        //     moreBtn.style.display = 'initial';
+
+        //     //por cada sugerencia se crea un div contendor juntos con su id.
+        //     response.data.forEach(element => {
+        //         let suggestionBox = document.createElement('div');
+        //         searchSuggestionsCtn.appendChild(suggestionBox);
+        //         suggestionBox.id = 'suggestionBox'
+
+        //         //se le apendea una imagen de lupa a cada div
+        //         let suggestionImg = document.createElement('img');
+        //         suggestionImg.setAttribute('src', 'images/lensSuggestions.svg');
+        //         suggestionImg.style.width = '1.2rem';
+        //         suggestionImg.alt = 'image'
+        //         suggestionBox.appendChild(suggestionImg); //se apendea la imagen al div contenedor.
+
+        //         //Buscar sugerencias
+        //         let suggestion = element.name;
+        //         //se crea un tag "p" para apendearle el texto de la sugerencia.
+        //         let suggestedWord = document.createElement('p');
+        //         suggestionBox.appendChild(suggestedWord);
+        //         //se muestra en el html.
+        //        suggestedWord.textContent = suggestion;
+
+        //         suggestionBox.addEventListener('mousedown', () => {
+        //             searchInput.value = suggestion; //autocompleta la barra con la palabra sugerida clickeada.
+        //             makeSearch(searchInput.value);
+        //         });
+        //     });
+
+        // }
+
     } catch (error) {
         console.log(error);
     }
 }
 
-
-
 //funcion de busqueda
 
 let gifCardTemplate = document.getElementById('gifCardTemplate').content.firstElementChild; //traer el template
 let resultCtn = document.getElementById('resultCtn'); //traigo el div que contiener el template
+let searchResultsSection = document.getElementById('searchResultsSection'); //traigo la seccion para sacarle el display none y que aparezca
 let searchTitle = document.getElementById('searchTitle');
+let moreBtn = document.getElementById('moreBtn');
 
 //funcion que hace la busqueda
 async function makeSearch(search) {
     try {
-        let response = await fetch(`https://api.giphy.com/v1/gifs/search?q=${search}&api_key=${apiKey}&limit=${12}`);
-    
+        let response = await fetch(`https://api.giphy.com/v1/gifs/search?q=${search}&api_key=${apiKey}&limit=${12}&offset=${12}`);
+
         let responseParsed = await response.json();
         console.log(responseParsed);
 
@@ -79,12 +123,18 @@ async function makeSearch(search) {
 
         searchTitle.textContent = searchInput.value;
 
+        searchResultsSection.style.display = 'grid';
+
+        // moreBtn.addEventListener('mousedown', () => {
+        //     makeSearch();
+        // })
+
         responseParsed.data.forEach( gif => { //le paso el parametro gif a la arrow function
             fillingGifCard(gif, resultCtn)
         });
-        
+
     } catch (error) {
-        console.log(error); 
+        console.log(error);
     }
 }
 
@@ -103,10 +153,10 @@ function fillingGifCard(gif, contenedor) {
 
     //datos del gif
     let gifTitle = gifCardTemplateClone.children[0].children[0];
-    gifTitle.textContent = gif.title;
+    gifTitle.textContent = gif.title || 'Sin título';
 
     let gifUserName = gifCardTemplateClone.children[0].children[1];
-    gifUserName.textContent = gif.username;
+    gifUserName.textContent = gif.username || 'Anónimo';
 
     //TO-DO --> eventListeners
     let gifFavIcon = gifCardTemplateClone.children[2].children[0];
@@ -117,7 +167,7 @@ function fillingGifCard(gif, contenedor) {
 
     let gifExpandIcon = gifCardTemplateClone.children[2].children[2];
     // gifExpandIcon. = ;
-    
+
     contenedor.appendChild(gifCardTemplateClone); //se apendea este contenedor al nodo clonado.
 }
 
@@ -126,33 +176,48 @@ function iconsSwitch() {
     crossIcon.style.display = 'flex';
     inputCtn.style.flexDirection = 'row-reverse';
     lensIcon.style.marginRight = '.2rem';
-    lensIcon.style.color = '#9CAFC3';
+    lensIcon.style.color = 'var(--tertiary-color)';
 }
 
 //estado del input antes de que el usuario haga click.
 function beforeSwitch() {
     crossIcon.style.display = 'none';
     inputCtn.style.flexFlow = 'row wrap';
-    lensIcon.style.color = '#572EE5';
+    lensIcon.style.color = 'var(--primary-color)';
     searchSuggestionsCtn.innerHTML = '';
 }
 
-//cruz vacía input
+//click en el icono cruz vacía input
 
 crossIcon.addEventListener('mousedown', function() {
     searchInput.value = '';
     searchSuggestionsCtn.innerHTML = '';
     resultCtn.innerHTML = ''; //preguntar sobre esto a Mati :)
     searchTitle.innerHTML = '';
+    searchResultsSection.style.display = 'none';
+    // NoSearchResultsCtn.style.display = 'none';
+});
+
+//click en el icono lupa hace la búsqueda
+lensIcon.addEventListener('mousedown', () => {
+    makeSearch(searchInput.value);
 });
 
 //tecla ENTER para hacer la busqueda
 
 searchInput.addEventListener('keyup', (e) => {
-    if( e.keyCode == 13){
-        e.preventDefault();
+    if( e.keyCode === 13){
+
         makeSearch(searchInput.value);
-    }
+
+    } 
+    // if (e.keyCode === 8){
+
+    //     searchSuggestionsCtn.innerHTML = '';
+    //     resultCtn.innerHTML = '';
+    //     searchTitle.innerHTML = '';
+    //     NoSearchResultsCtn.style.display = 'none';
+    // }
 });
 
 //agrego a la sección de trendings las palabras más buscadas del momento.
@@ -161,13 +226,13 @@ let trendingWordsCtn = document.getElementById('trendingWordsCtn');
 async function getTrendingsWords() {
     try {
         const trends = await fetch(`https://api.giphy.com/v1/trending/searches?&api_key=${apiKey}`); //llamada al endpoint de términos de búsqueda de tendencia
-        
+
         let text = await trends.json(); //parseamos la respuesta obtenida
-        
+
         text.data.splice(5, 20); //sacamos las ultimas 15 palabras a data.
 
         // console.log(text);
-        
+
         // trendingWords.textContent = text.data.join(', '); //imprimir el texto en html y separar las palabras.
 
         text.data.forEach(trendingWord => {

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles/style.css">
     <script src="https://kit.fontawesome.com/ccc8f7a871.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="images/logoLightMode.svg">
     <title>GIFOS project</title>
 </head>
 <body>
@@ -37,29 +38,31 @@
     <main>
         <section class="introduction">
             <h1>Inspírate, busca, guarda, y crea los mejores <span>gifos</span></h1>
-            <div class="sectionSearch">
+            <div class="searchSection">
                 <img src="images/ilustra_header.svg" alt="image-header">
-                <div class="searchCtn">
-                    <div id ="searchBarCtn" class="searchBar">
-                        <div id="inputCtn">
-                            <i id="crossIcon" class="fas fa-times"></i>
-                            <input id="searchInput" class="search" type="text"  placeholder="Busca GIFOS y más">
-                            <i id="lensIcon" class="fas fa-search"></i>
-                            <label for="search"></label>
-                        </div>
-                        <!-- contenedor creado para apendear via JS las palabras sugeridas -->
-                        <div id="suggestionCtn"></div>
+                <div id ="searchBarCtn" class="searchBar">
+                    <div id="inputCtn" class="inputBarCtn">
+                        <i id="crossIcon" class="fas fa-times crossIcon"></i>
+                        <input id="searchInput" class="searchInput" type="text"  placeholder="Busca GIFOS y más">
+                        <i id="lensIcon" class="fas fa-search lensIcon"></i>
+                        <label for="search"></label>
                     </div>
+                    <!-- contenedor creado para apendear via JS las palabras sugeridas -->
+                    <div id="suggestionsCtn" class="suggestionsCtn"></div>
                 </div>
             </div>
             <article id="trendingWordsCtn" class="trendings">
                 <h3>Trending:</h3>
             </article>
         </section>
-        <section id="resultSearch" class="searchResults" >
-            <h2 id="searchTitle"></h2>
+        <section id="searchResultsSection" class="searchResults" >
+            <h2 id="searchTitle" class="searchedWord"></h2>
+            <div id="NoSearchResultsCtn" class="NoSearchResultsCtn">
+                <img src="images/iconBusquedaSinResultado.svg" alt="ouch!">
+                <span>Intenta con otra búsqueda.</span>
+            </div>
             <!-- tarjeta gif -->
-            <div id="resultCtn">
+            <div id="resultCtn" class="resultsCtn">
                 <template id="gifCardTemplate"> 
                     <article class="gifContainer">
                         <div class="gifInfo">
@@ -84,8 +87,8 @@
                     </article>
                 </template>
             </div>
-            <article class="verMasBtn">
-                <button>Ver más</button> 
+            <article class="loadMoreBtn">
+                <button id="moreBtn">Ver más</button> 
             </article>
         </section>
         <section class="trend-gifos">
@@ -97,20 +100,57 @@
                 </button>
                 <div class="carousel">
                     <img class="carouselImage" src="images/cat.gif" alt="gif">
-                    <img class="carouselImage" src="images/stevie-wonder.gif" alt="gif">
-                    <img class="carouselImage" src="images/lady-gaga.gif" alt="gif">
+                    <img class="carouselImage hidden" src="images/stevie-wonder.gif" alt="gif">  <!--sacar clase hidden -->
+                    <img class="carouselImage hidden" src="images/lady-gaga.gif" alt="gif"> <!--sacar clase hidden -->
                 </div>
                 <button class="buttonSlider">
                     <i class="fas fa-chevron-right"></i>
                 </button> 
             </div>   
         </section>
+        <section class="createGif">
+            <div class="lightsCameraAction">
+                <img class="camImage" src="images/camara.svg" alt="cam">
+                <img class="lightImage" src="images/element-luz-camara.svg" alt="light">
+            </div>
+            <div class="introCreateGif">
+                <article class="firstScreen">
+                    <span class="corner-left corner-top"></span>
+                    <span class="corner-right corner-top"></span>
+                    <!-- <div class="video">
+                        <video id="gif-captor" class="hiddenClass" src="" controls autoplay></video>
+                    </div> -->
+                    <video id="gif-captor" class="hiddenClass" src="" controls autoplay></video>
+                    <span class="corner-left corner-bottom"></span>
+                    <span class="corner-right corner-bottom"></span>
+                    <h4 id="titleCreateGif">Aquí podrás <br> crear tus propios GIFOS</h4>
+                    <p id="textCreateGif">¡Crea tu GIFO en sólo 3 pasos! <br> (sólo necesitas una cámara para grabar un video)</p>
+                </article>
+            </div>
+            <div class="bottomContainer">
+                <div class="numberButtonsCtn">
+                    <span class="number">1</span>
+                    <span class="number">2</span>
+                    <span class="number">3</span>
+                </div>
+                <div class="hiddenClass" id="counter">
+                   <span></span> 
+                </div>
+            </div>
+            <div class="bottomImage">
+                <img class="pelicula" src="images/pelicula.svg" alt="peliculaImage">
+            </div>
+            <div class="startBtnContainer">
+                <button id="startBtn" class="startBtn">Comenzar</button>
+            </div>
+            
+        </section>
     </main>
     <!-- fin main section -->
     <footer>
-        <section class="socialNetworks">
+        <section class="additionalInfo">
             <h4>Redes Sociales</h4>
-            <article class="linksNetworks">
+            <article class="socialNetworks">
                 <h3>Compartir en:</h3>
                 <div>
                     <a href="https://www.facebook.com/Acamica.org/" target="_blank"><i class="fab fa-facebook-f"></i></a>
@@ -118,7 +158,7 @@
                     <a href="https://www.instagram.com/acamica/" target="_blank"><i class="fab fa-instagram"></i></a>
                 </div>
             </article>
-            <article class="rights">
+            <article class="rightsReserved">
                 <h6>&copy; GIFOS 2020 All Rights Reserved.</h6>
             </article>
         </section>
@@ -126,5 +166,6 @@
     <!-- fin footer section -->
     <script src="js/script.js"></script>
     <script src="js/modoNocturno.js"></script>
+    <script src="js/crearGifos.js"></script>
 </body>
 </html>

@@ -5,7 +5,18 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    transition: all .5s ease-out;
+    transition: all .3s ease-out;
+}
+
+%hover-buttons{
+    color: var(--icon-hover-color);
+    background-color: var(--primary-color);
+}
+
+%active-buttons{
+    color: #FFFFFF;
+    background-color: var(--tertiary-color);
+    border: 1px solid var(--tertiary-color);
 }
 
 //chequear si puedo usarlos ?)
