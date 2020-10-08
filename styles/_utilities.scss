@@ -19,6 +19,26 @@
     border: 1px solid var(--tertiary-color);
 }
 
+%buttonLoadMore{
+    cursor: pointer;
+    outline: none;
+    border: 1px solid var(--primary-color);
+    border-radius: 25px;
+    background: none;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--primary-color);
+    font-size: 13px;
+    font-weight: bold;
+    height: 3rem;
+    width: 7.9rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    &:hover{
+        @extend %hover-buttons;
+    }
+}
+
 //chequear si puedo usarlos ?)
 @mixin behave-vertical {
     display:flex;

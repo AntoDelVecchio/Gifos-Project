@@ -58,46 +58,6 @@ async function autoCompletar() {
             });
         });
 
-        // si el array de objetos está vacío muestra una image y un span avisando.
-        // if(response.data.length === 0){
-
-        //     NoSearchResultsCtn.style.display = 'flex';
-        //     moreBtn.style.display = 'none';
-
-        // }else{
-
-        //     NoSearchResultsCtn.style.display = 'none';
-        //     moreBtn.style.display = 'initial';
-
-        //     //por cada sugerencia se crea un div contendor juntos con su id.
-        //     response.data.forEach(element => {
-        //         let suggestionBox = document.createElement('div');
-        //         searchSuggestionsCtn.appendChild(suggestionBox);
-        //         suggestionBox.id = 'suggestionBox'
-
-        //         //se le apendea una imagen de lupa a cada div
-        //         let suggestionImg = document.createElement('img');
-        //         suggestionImg.setAttribute('src', 'images/lensSuggestions.svg');
-        //         suggestionImg.style.width = '1.2rem';
-        //         suggestionImg.alt = 'image'
-        //         suggestionBox.appendChild(suggestionImg); //se apendea la imagen al div contenedor.
-
-        //         //Buscar sugerencias
-        //         let suggestion = element.name;
-        //         //se crea un tag "p" para apendearle el texto de la sugerencia.
-        //         let suggestedWord = document.createElement('p');
-        //         suggestionBox.appendChild(suggestedWord);
-        //         //se muestra en el html.
-        //        suggestedWord.textContent = suggestion;
-
-        //         suggestionBox.addEventListener('mousedown', () => {
-        //             searchInput.value = suggestion; //autocompleta la barra con la palabra sugerida clickeada.
-        //             makeSearch(searchInput.value);
-        //         });
-        //     });
-
-        // }
-
     } catch (error) {
         console.log(error);
     }
@@ -113,24 +73,32 @@ let moreBtn = document.getElementById('moreBtn');
 
 //funcion que hace la busqueda
 async function makeSearch(search) {
+    let response = await fetch(`https://api.giphy.com/v1/gifs/search?q=${search}&api_key=${apiKey}&limit=${12}`);
+
+    let responseParsed = await response.json();
     try {
-        let response = await fetch(`https://api.giphy.com/v1/gifs/search?q=${search}&api_key=${apiKey}&limit=${12}&offset=${12}`);
-
-        let responseParsed = await response.json();
-        console.log(responseParsed);
-
         resultCtn.textContent = '';
 
         searchTitle.textContent = searchInput.value;
 
-        searchResultsSection.style.display = 'grid';
+        searchResultsSection.classList.remove('hiddenClass');
+
+        const gifs = responseParsed.data;
+
+        if(gifs.length === 0){
+
+            resultCtn.classList.add('hiddenClass');
+            NoSearchResultsCtn.classList.remove('hiddenClass');
+            moreBtn.classList.add('hiddenClass');
+            return;
+        }
 
         // moreBtn.addEventListener('mousedown', () => {
         //     makeSearch();
         // })
 
         responseParsed.data.forEach( gif => { //le paso el parametro gif a la arrow function
-            fillingGifCard(gif, resultCtn)
+            addGIFsToDOM(gif, resultCtn)
         });
 
     } catch (error) {
@@ -138,13 +106,11 @@ async function makeSearch(search) {
     }
 }
 
-// makeSearch('kitten');
-
-
 //funcion que rellena con los gif buscados
-function fillingGifCard(gif, contenedor) {
+function addGIFsToDOM(gif, contenedor) {
 
     let gifCardTemplateClone = gifCardTemplate.cloneNode(true); //clonar template
+
     let trueGif = gifCardTemplateClone.children[1].children[0];
     trueGif.src = gif.images.fixed_height.url; //traer el gif desde la url height. gif es data[x]
 
@@ -158,6 +124,7 @@ function fillingGifCard(gif, contenedor) {
     let gifUserName = gifCardTemplateClone.children[0].children[1];
     gifUserName.textContent = gif.username || 'Anónimo';
 
+    //funcionalidades de botones
     //TO-DO --> eventListeners
     let gifFavIcon = gifCardTemplateClone.children[2].children[0];
     // gifFavIcon. = ;
@@ -194,8 +161,8 @@ crossIcon.addEventListener('mousedown', function() {
     searchSuggestionsCtn.innerHTML = '';
     resultCtn.innerHTML = ''; //preguntar sobre esto a Mati :)
     searchTitle.innerHTML = '';
-    searchResultsSection.style.display = 'none';
-    // NoSearchResultsCtn.style.display = 'none';
+    searchResultsSection.classList.add('hiddenClass');
+    // NoSearchResultsCtn.classList.remove('NoSearchResultsCtn');
 });
 
 //click en el icono lupa hace la búsqueda
@@ -216,7 +183,7 @@ searchInput.addEventListener('keyup', (e) => {
     //     searchSuggestionsCtn.innerHTML = '';
     //     resultCtn.innerHTML = '';
     //     searchTitle.innerHTML = '';
-    //     NoSearchResultsCtn.style.display = 'none';
+    //     NoSearchResultsCtn.classList.remove('NoSearchResultsCtn');
     // }
 });
 
@@ -258,3 +225,145 @@ async function getTrendingsWords() {
 }
 
 getTrendingsWords();
+
+
+//esconder secciones
+
+//traigo las secciones principales para esconderlas o mostrarlas de acuerdo a lo que necesite
+let introductionSection = document.getElementById('introduction');
+let trendingSection = document.getElementById('trendGifos');
+
+//seccion favoritos
+//traigo el id del boton de favoritos en la barra de navegacion y el contenedor de la seccion favoritos. 
+//Esto lo repito con la seccion mis gifos y tambien con la de crear gifos.
+
+let favoritos = document.getElementById('favoritos');
+let favoritosSection = document.getElementById('favsSection');
+
+favoritos.addEventListener('click', () => {
+    favoritosSection.classList.remove('hiddenClass');
+    introductionSection.classList.add('hiddenClass');
+    favoritos.classList.add('activeTab');
+
+    if(!misGifosSection.classList.contains('hiddenClass')){
+
+        misGifosSection.classList.add('hiddenClass');
+        misGifos.classList.remove('activeTab');
+
+    }else if(!creatGifSection.classList.contains('hiddenClass')) {
+
+        creatGifSection.classList.add('hiddenClass');
+        btnCrearGifo.classList.remove('activeBtn');
+        trendingSection.classList.remove('hiddenClass');
+
+    }else if(!searchResultsSection.classList.contains('hiddenClass')){
+
+        searchResultsSection.classList.add('hiddenClass');
+
+    }
+});
+
+//seccion mis gifos
+let misGifos = document.getElementById('misGifos');
+let misGifosSection = document.getElementById('misGifosSection');
+
+misGifos.addEventListener('click', () => {
+    misGifosSection.classList.remove('hiddenClass');
+    introductionSection.classList.add('hiddenClass');
+    misGifos.classList.add('activeTab');
+
+    if(!favoritosSection.classList.contains('hiddenClass')){
+
+        favoritosSection.classList.add('hiddenClass');
+        favoritos.classList.remove('activeTab');
+
+    }else if(!creatGifSection.classList.contains('hiddenClass')) {
+
+        creatGifSection.classList.add('hiddenClass');
+        btnCrearGifo.classList.remove('activeBtn');
+        trendingSection.classList.remove('hiddenClass');
+
+    }else if(!searchResultsSection.classList.contains('hiddenClass')){
+
+        searchResultsSection.classList.add('hiddenClass');
+        
+    }
+});
+
+//seccion para crear gifos
+let btnCrearGifo = document.getElementById('btnCrearGifo');
+let creatGifSection = document.getElementById('creatGifSection');
+
+btnCrearGifo.addEventListener('click', () => {
+    creatGifSection.classList.remove('hiddenClass');
+    btnCrearGifo.classList.add('activeBtn');
+    introductionSection.classList.add('hiddenClass');
+    trendingSection.classList.add('hiddenClass');
+
+    if(!favoritosSection.classList.contains('hiddenClass')){
+
+        favoritosSection.classList.add('hiddenClass');
+        favoritos.classList.remove('activeTab');
+
+    }else if(!misGifosSection.classList.contains('hiddenClass')){
+
+        misGifosSection.classList.add('hiddenClass');
+        misGifos.classList.remove('activeTab');
+        
+    }else if(!searchResultsSection.classList.contains('hiddenClass')){
+
+        searchResultsSection.classList.add('hiddenClass');
+        
+    }
+});
+
+//seccion home - logo
+let home = document.getElementById('logo');
+
+home.addEventListener('click', () => {
+    introductionSection.classList.remove('hiddenClass');
+    trendingSection.classList.remove('hiddenClass');
+
+    if(!favoritosSection.classList.contains('hiddenClass')){
+
+        favoritosSection.classList.add('hiddenClass');
+        favoritos.classList.remove('activeTab');
+
+    }else if(!misGifosSection.classList.contains('hiddenClass')){
+
+        misGifosSection.classList.add('hiddenClass');
+        misGifos.classList.remove('activeTab');
+
+    }else if(!creatGifSection.classList.contains('hiddenClass')) {
+
+        creatGifSection.classList.add('hiddenClass');
+        btnCrearGifo.classList.remove('activeBtn');
+
+    }else if(!searchResultsSection.classList.contains('hiddenClass')){
+
+        searchResultsSection.classList.add('hiddenClass');
+        
+    }
+});
+
+
+
+//scroll hacia abajo esconde nav bar - hacia arriba la muestra
+
+let ubicacionPrincipal = window.pageYOffset;
+//cuando en la ventana se haga un scroll llama una funcion
+
+window.onscroll = function() {
+    
+    let desplazamientoActual = window.pageYOffset;
+
+    if(ubicacionPrincipal >= desplazamientoActual) {
+
+        document.getElementById('navBar').style.top = '0';
+
+    }else{
+
+        document.getElementById('navBar').style.top = '-100px';
+    }
+    ubicacionPrincipal = desplazamientoActual;
+}

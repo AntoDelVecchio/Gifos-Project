@@ -16,10 +16,21 @@ checkbox.addEventListener('click', function() {
 
 function changeImage() {
     let image = document.getElementById('logo');
-    if (image.src.match("images/logoDarkMode.svg")) {
+    let camImage = document.getElementById('camImage');
+    let tapeImage = document.getElementById('tapeImage');
+
+    if (image.src.match("images/logoDarkMode.svg") || 
+        camImage.src.match('images/camaraDarkMode.svg') ||
+        tapeImage.src.match('images/peliculaDarkMode.svg')) {
+
         image.src = "images/logoLightMode.svg";
+        camImage.src = 'images/camara.svg';
+        tapeImage.src = 'images/pelicula.svg';
+
     } else {
         image.src = "images/logoDarkMode.svg";
+        camImage.src = 'images/camaraDarkMode.svg';
+        tapeImage.src = 'images/peliculaDarkMode.svg';
     }
 }
 

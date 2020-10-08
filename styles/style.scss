@@ -32,8 +32,8 @@ header{
     position: sticky;
     top: 0;
     z-index: 10000;
+    transition: top .2s;
     @include respond-to(desktop-screen) {
-        position: initial;
         display: flex;
         flex-flow: row;
         justify-content: space-between;
@@ -42,6 +42,7 @@ header{
         float: left;
         display: block;
         margin: 1.5rem 1.5rem 0;
+        cursor: pointer;
         @include respond-to(desktop-screen, xlg-screen) {
             width: 4rem;
             height: 3.69rem;
@@ -53,7 +54,7 @@ header{
     .menu-btn{
         display: none;
         &:checked ~ nav ul{
-            min-height: 92.5vh;
+            min-height: 101vh;
             position: absolute;
             top: 100%;
         }
@@ -131,6 +132,7 @@ header{
                     label{
                         cursor: pointer;
                         line-height: 3rem;
+                        margin-right: 1rem;
                         @include respond-to(desktop-screen, xlg-screen){
                             &:hover{
                                 border-bottom: 2px solid var(--secondary-color);
@@ -175,7 +177,7 @@ header{
                     &:last-child{
                         margin: 0 8rem 0 1rem;
                     }
-                    button{
+                    .btnCrearGifo{
                         display: inline-block;
                         cursor: pointer;
                         width: 54px;
@@ -191,6 +193,14 @@ header{
                     }
                     &:after{
                         border-bottom: none;
+                    }
+                    .activeTab{
+                        color: var(--tertiary-color);
+                    }
+                    .activeBtn{
+                        background-color:  var(--tertiary-color);
+                        color: #FFFFFF;
+                        border: 1px solid var(--tertiary-color);
                     }
                 }
             }
@@ -370,8 +380,29 @@ main {
     }
 
  //sección de resultados de búsqueda
+    .NoSearchResultsCtn{
+        display: flex;
+        flex-flow: column wrap;
+        margin: 2rem 2rem 4rem;
+        @include respond-to(desktop-screen, xlg-screen){
+            margin-bottom: 8rem;
+        }
+        img{
+            margin: 2rem;
+            @include respond-to(desktop-screen, xlg-screen){
+                margin: 4rem 2rem 1.8rem 2rem;
+            }           
+        }
+        span{
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            line-height: 25px;
+            text-align: center;
+        }
+    }
     .searchResults{
-        display: none;
         margin: 1rem;
         &:before{
             content: "";
@@ -385,7 +416,7 @@ main {
             }
         }
         @include respond-to(tablet-screen, desktop-screen, xlg-screen) {
-            display: none;
+            display: grid;
             grid-template-columns: [x0] 1fr;
             justify-items: center;
         }
@@ -404,28 +435,6 @@ main {
                 font-size: 2.2rem;
                 line-height: 30px;
                 margin: 3rem 0;
-            }
-        }
-        .NoSearchResultsCtn{
-            display: none;
-            flex-flow: column wrap;
-            margin: 2rem 2rem 4rem;
-            @include respond-to(desktop-screen, xlg-screen){
-                margin-bottom: 8rem;
-            }
-            img{
-                margin: 2rem;
-                @include respond-to(desktop-screen, xlg-screen){
-                    margin: 4rem 2rem 1.8rem 2rem;
-                }           
-            }
-            span{
-                font-family: 'Montserrat', sans-serif;
-                font-weight: bold;
-                font-size: 1.4rem;
-                color: var(--secondary-color);
-                line-height: 25px;
-                text-align: center;
             }
         }
         //contenedor donde se apendean los gif mostrados
@@ -532,30 +541,14 @@ main {
             display: flex;
             justify-content: center;
             button{
-                cursor: pointer;
-                outline: none;
-                border: 1px solid var(--primary-color);
-                border-radius: 25px;
-                background: none;
-                text-transform: uppercase;
-                font-family: 'Montserrat', sans-serif;
-                color: var(--primary-color);
-                font-size: 13px;
-                font-weight: bold;
-                height: 3rem;
-                width: 7.9rem;
-                margin-top: 4rem;
-                margin-bottom: 4rem;
-                &:hover{
-                    @extend %hover-buttons;
-                }
+                @extend %buttonLoadMore;
             }
         }
     }
     // fin sección de resultados de búsqueda
 
     //comienza el carousel de gif en tendecia //TO-DO
-    .trend-gifos{
+    .trendGifos{
         width: 100%;
         background-color: var(--bg-carousel);
         text-align: center;
@@ -649,17 +642,164 @@ main {
         }
     } //Fin del carousel de gif en tendecia
 
-    .createGif{
-        display: none;
+    .section{
+        width: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        justify-content: center;
+        align-items: center;
+        img{
+            margin-bottom: .5rem;
+        }
+        h2{
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            text-align: center;
+            line-height: 30px;
+            margin-bottom: 2.5rem;
+        }
+        .emptySection{
+            display: flex;
+            flex-flow: column wrap;
+            margin: 2rem 2rem 4rem;
+            @include respond-to(desktop-screen, xlg-screen){
+                margin-bottom: 8rem;
+            }
+            img{
+                margin: 2rem;
+                @include respond-to(desktop-screen, xlg-screen){
+                    margin: 4rem 2rem 1.8rem 2rem;
+                }           
+            }
+            span{
+                font-family: 'Montserrat', sans-serif;
+                font-weight: bold;
+                font-size: 1.4rem;
+                color: var(--secondary-color);
+                line-height: 25px;
+                text-align: center;
+            }
+        }
+        .gifCtn{
+            width: 100%; 
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            @include respond-to(tablet-screen, xlg-screen) {
+                width: 90%;
+            }
+            .gifContainer {
+                position: relative;
+                width: 45%;
+                margin: .5rem;
+                @include respond-to(tablet-screen) {
+                    width: 30%;
+                }
+                @include respond-to(desktop-screen, xlg-screen) {
+                    &:hover{
+                        .filterGif, .gifInfo, .gifBtns{
+                            display: initial;
+                            position: absolute;
+                        }
+                    }
+                    width: 20%;
+                    margin: .8rem;
+                }
+                .loadedGifCtn{
+                    .loadedGif{
+                        width: 100%;
+                        height: 10rem;
+                        @include respond-to(desktop-screen, tablet-screen){
+                            height: 12rem;
+                        }
+                        @include respond-to(xlg-screen) {
+                            height: 15rem;
+                        }
+                    }
+                }
+                //info y botones para cada gif mostrado
+                .gifInfo{
+                    display: none;
+                    bottom: 2rem;
+                    left: 1rem;
+                    z-index: 1000;
+                    h5{
+                        font-family: 'Roboto', sans-serif;
+                        font-weight: bold;
+                        font-size: .8rem;
+                        color: var(--text-color);
+                        @include respond-to(desktop-screen, xlg-screen, tablet-screen) {
+                            color: #FFFFFF;
+                            font-size: 1rem;
+                        }
+                    }
+                    span{
+                        font-family: 'Roboto', sans-serif;
+                        font-size: .6rem;
+                        color: var(--text-color);
+                        @include respond-to(desktop-screen, xlg-screen, tablet-screen) {
+                            color: #FFFFFF;
+                            font-size: .8rem;
+                        }
+                    }
+                }
+                .gifBtns{
+                    display: none;
+                    right: 1rem;
+                    top: 1rem;
+                    z-index: 1000;
+                    button{
+                        cursor: pointer;
+                        border: 1px solid #CED7E1; //ver este color
+                        border-radius: 6px;
+                        background: #FFFFFF;
+                        opacity: 0.7;
+                        height: 32px;
+                        width: 32px;
+                        .fa-heart, .fa-download, .fa-expand-alt{
+                            color: var(--deselect-icons-color);
+                            font-size: 1.3rem;
+                        }
+                    }
+                }
+                .filterGif {
+                    @include respond-to(desktop-screen){
+                        cursor: pointer;
+                        background: var(--bg-cards-hover);
+                        width: 100%;
+                        height: 12rem;
+                        opacity: 70%;
+                        display: none;
+                        top: 0;
+                        left: 0;
+                    }
+                    @include respond-to(xlg-screen) {
+                        height: 15rem;
+                    }
+                }
+            }
+        }
+        .loadMoreBtn{
+            display: flex;
+            justify-content: center;
+            button{
+                @extend %buttonLoadMore;
+            }
+        }
     }
 
-    @include respond-to(desktop-screen){
-        .createGif{
+    .createGif{
+        display: none;
+        @include respond-to(desktop-screen){  
             width: 100%;
             display: flex;
             flex-flow: row wrap;
             justify-content: center;
-            margin-top: 3rem;
+            padding-top: 3rem;
+            @include respond-to(xlg-screen) {
+                height: 76.1vh;
+            }
             .lightsCameraAction{
                 margin-left: -10rem;
                 width: 15%;
@@ -685,7 +825,7 @@ main {
             }
             .introCreateGif{
                 width: 60%;
-                height: 24.375rem;
+                height: 30rem;
                 border: 1px solid var(--primary-color);
                 position: relative;
                 @include respond-to(xlg-screen){
@@ -718,17 +858,11 @@ main {
                         border-bottom: 1px solid var( --secondary-color);
                         bottom: 1.5rem;
                     }
-                    // video{
-                    //     display: flex;
-                    //     align-self: center;
-                    //     #gif-captor{
-                    //         width: 30rem;
-                    //     }
-                    // }
-                    video{
+                    .video{
                         width: 75%;
                         height: 75%;
-                        transform: translate(75px, 0);
+                        display: flex;
+                        align-self: center;
                     }
                     h4{
                         font-family: 'Montserrat', sans-serif;
@@ -753,17 +887,6 @@ main {
                 width: 100%;
                 height: 5rem;
                 margin-top: 1rem;
-                &::after{
-                    content: "";
-                    display: block;
-                    margin: 0 auto;
-                    width: 55vw;
-                    border-bottom: 6px solid var(--primary-color);
-                    border-radius: 25px;
-                    // @include respond-to(xlg-screen){
-                    //     width: 60%;
-                    // }
-                }
                 .numberButtonsCtn{
                     // width: 65%;
                     width: 100%;
@@ -791,22 +914,41 @@ main {
                         margin: 1rem;
                         cursor: pointer;
                     }
+                    .isCurrent {
+                        background-color: var(--primary-color);
+                        color: var(--icon-hover-color);
+                    }
+                }
+                .counterCtn{
+                    display: flex;
+                    justify-content: flex-end;
+                    width: 80%;
+                    margin-top: -4rem;
+                    @include respond-to(xlg-screen) {
+                        width: 75%;
+                    }
                     .counter{
                         font-family: 'Montserrat', sans-serif;
                         font-weight: bold;
                         color: var(--primary-color);
                         font-size: .8rem;
-                    }
-                    .isCurrent {
-                        background-color: var(--primary-color);
-                        color: var(--icon-hover-color);
-                    }
-                    .subrayadoHover{
-                        &:hover{
+                        text-transform: uppercase;
+                        height: 1rem;
+                       .repetirCapturaHover{
+                           &:hover {
                             border-bottom: 3px solid var(--secondary-color);
+                           }
                         }
                     }
                 }
+            }
+            .bottomLine{
+                content: "";
+                display: block;
+                margin: 0 auto;
+                width: 65%;
+                border-bottom: 6px solid var(--primary-color);
+                border-radius: 25px;
             }
             .bottomImage{
                 width: 100%;
@@ -816,12 +958,6 @@ main {
                 @include respond-to(xlg-screen){
                     transform: translate(-100px, -100px);
                 }
-                // width: 30%;
-                // display: flex;
-                // justify-content: flex-end;
-                // @include respond-to(xlg-screen){
-                //     width: 15%;
-                // }
             }
             .startBtnContainer{
                 display: flex;
@@ -849,6 +985,7 @@ main {
             }
         }
     }
+
     .hiddenClass{
         display: none;
     }
@@ -861,7 +998,7 @@ footer{
     border-bottom: .3rem solid var(--bg-border);
     padding: 3rem 1rem 0 1rem;
     @include respond-to(desktop-screen) {
-        height: 8rem;
+        height: 10rem;
         display: flex;
         flex-flow: row wrap;
         align-items: center;
@@ -892,6 +1029,7 @@ footer{
             h3 {
                 font-family: 'Roboto', sans-serif;
                 font-size: .9rem;
+                font-weight: normal;
                 color: var(--text-color);
                 letter-spacing: 0;
                 line-height: 1rem;

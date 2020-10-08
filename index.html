@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="styles/style.css">
     <script src="https://kit.fontawesome.com/ccc8f7a871.js" crossorigin="anonymous"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
     <link rel="icon" href="images/logoLightMode.svg">
-    <title>GIFOS project</title>
+    <title>GIFOS</title>
 </head>
 <body>
-    <header>
+    <header id="navBar">
         <img id="logo" class="logo" src="images/logoLightMode.svg" alt="logo">
-        <input class="menu-btn" type="checkbox" id="menu-btn">
-        <label class="menu-icon" for="menu-btn">
+        <input id="menu-btn" class="menu-btn" type="checkbox">
+        <label class="menu-icon" for="menu-btn" id="menuBtn">
             <span class="nav-icon"></span>
         </label>
         <nav>
@@ -23,11 +24,11 @@
                         Modo Nocturno
                     </label> 
                 </li>
-                <li><a href="#">Favoritos</a></li>
-                <li><a href="#">Mis GIFOS</a></li>
-                <!-- botón disponible sólo para versión en desktop -->
+                <li><a href="#" id="favoritos">Favoritos</a></li>
+                <li><a href="#" id="misGifos">Mis GIFOS</a></li>
+                <!-- botón crear gifo disponible sólo para versión en desktop -->
                 <li>
-                    <button class="btn-crear-gifo">
+                    <button id="btnCrearGifo" class="btnCrearGifo">
                         <i class="fas fa-plus"></i>
                     </button>
                 </li>
@@ -36,7 +37,7 @@
     </header>    
     <!-- Fin header section -->
     <main>
-        <section class="introduction">
+        <section id="introduction" class="introduction">
             <h1>Inspírate, busca, guarda, y crea los mejores <span>gifos</span></h1>
             <div class="searchSection">
                 <img src="images/ilustra_header.svg" alt="image-header">
@@ -55,9 +56,9 @@
                 <h3>Trending:</h3>
             </article>
         </section>
-        <section id="searchResultsSection" class="searchResults" >
+        <section id="searchResultsSection" class="searchResults hiddenClass" >
             <h2 id="searchTitle" class="searchedWord"></h2>
-            <div id="NoSearchResultsCtn" class="NoSearchResultsCtn">
+            <div id="NoSearchResultsCtn" class="NoSearchResultsCtn hiddenClass">
                 <img src="images/iconBusquedaSinResultado.svg" alt="ouch!">
                 <span>Intenta con otra búsqueda.</span>
             </div>
@@ -87,11 +88,118 @@
                     </article>
                 </template>
             </div>
+            <div class="loadMoreBtn">
+                <button id="moreBtn">Ver más</button> 
+            </div>
+        </section>
+        <section id="favsSection" class="favoritos section hiddenClass">
+            <img src="images/icon-favoritos.svg" alt="favIcon">
+            <h2>Favoritos</h2>
+            <div id="emptyFavsSection" class="emptyFavsSection emptySection hiddenClass">
+                <img src="images/icon-fav-sin-contenido.svg" alt="Guarda tu primer gifo">
+                <span>"¡Guarda tu primer GIFO en Favoritos <br> para que se muestre aquí!"</span>
+            </div>
+            <div id="favsCtn" class="favs gifCtn">
+                <template id="gifCardTemplate"> 
+                    <article class="gifContainer">
+                        <div class="gifInfo">
+                            <h5 class="gifTitle"></h5>
+                            <span class="gifUser"></span>
+                        </div>
+                        <div class="loadedGifCtn">
+                            <img class="loadedGif" src="" alt="">
+                        </div>
+                        <div class="gifBtns">
+                            <button class="gifFav">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="gifDownload">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="gifExpand">
+                                <i class="fas fa-expand-alt"></i>
+                            </button>
+                        </div>
+                        <div class="filterGif"></div>
+                    </article>
+                </template>
+            </div>
             <article class="loadMoreBtn">
                 <button id="moreBtn">Ver más</button> 
             </article>
         </section>
-        <section class="trend-gifos">
+        <section id="misGifosSection" class="misGifos section hiddenClass">
+            <img src="images/icon-mis-gifos.svg" alt="mis gifos icon">
+            <h2>Mis GIFOS</h2>
+            <div id="emptyMisGifosSection" class="emptyMisGifosSection emptySection hiddenClass">
+                <img src="images/icon-mis-gifos-sin-contenido.svg" alt="animate a crear">
+                <span>¡Anímate a crear tu primer GIFO!</span>
+            </div>
+            <div id="misGifosCtn" class="misGifos gifCtn">
+                <template id="gifCardTemplate"> 
+                    <article class="gifContainer">
+                        <div class="gifInfo">
+                            <h5 class="gifTitle"></h5>
+                            <span class="gifUser"></span>
+                        </div>
+                        <div class="loadedGifCtn">
+                            <img class="loadedGif" src="" alt="">
+                        </div>
+                        <div class="gifBtns">
+                            <button class="gifFav">
+                                <i class="far fa-heart"></i>
+                            </button>
+                            <button class="gifDownload">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="gifExpand">
+                                <i class="fas fa-expand-alt"></i>
+                            </button>
+                        </div>
+                        <div class="filterGif"></div>
+                    </article>
+                </template>
+            </div>
+            <article class="loadMoreBtn">
+                <button id="moreBtn">Ver más</button> 
+            </article>
+        </section>
+        <section id="creatGifSection" class="createGif hiddenClass">
+            <div class="lightsCameraAction">
+                <img class="camImage" id="camImage" src="images/camara.svg" alt="cam">
+                <img class="lightImage" src="images/element-luz-camara.svg" alt="light">
+            </div>
+            <div class="introCreateGif">
+                <article class="firstScreen">
+                    <span class="corner-left corner-top"></span>
+                    <span class="corner-right corner-top"></span>
+                    <video id="gif-captor" class="hiddenClass" src="" controls autoplay></video>
+                    <span class="corner-left corner-bottom"></span>
+                    <span class="corner-right corner-bottom"></span>
+                    <h4 id="titleCreateGif">Aquí podrás <br> crear tus propios GIFOS</h4>
+                    <p id="textCreateGif">¡Crea tu GIFO en sólo 3 pasos! <br> (sólo necesitas una cámara para grabar un video)</p>
+                </article>
+            </div>
+            <div class="bottomContainer">
+                <div class="numberButtonsCtn">
+                    <span class="number">1</span>
+                    <span class="number">2</span>
+                    <span class="number">3</span>
+                </div>
+                <div id="counter" class="counterCtn hiddenClass">
+                   <span class="counter"></span> 
+                </div>
+            </div>
+            <article class="bottomLine"></article>
+            <div class="bottomImage">
+                <img class="pelicula" id="tapeImage" src="images/pelicula.svg" alt="peliculaImage">
+            </div>
+            <div class="startBtnContainer">
+                <button id="startBtn" class="startBtn">Comenzar</button>
+            </div>
+            
+        </section>
+        <section id="trendGifos" class="trendGifos">
             <h2>Trending GIFOS</h2>
             <p>Mira los últimos <br>GIFOS de nuestra comunidad.</p>
             <div class="carouselWrapper">
@@ -107,43 +215,6 @@
                     <i class="fas fa-chevron-right"></i>
                 </button> 
             </div>   
-        </section>
-        <section class="createGif">
-            <div class="lightsCameraAction">
-                <img class="camImage" src="images/camara.svg" alt="cam">
-                <img class="lightImage" src="images/element-luz-camara.svg" alt="light">
-            </div>
-            <div class="introCreateGif">
-                <article class="firstScreen">
-                    <span class="corner-left corner-top"></span>
-                    <span class="corner-right corner-top"></span>
-                    <!-- <div class="video">
-                        <video id="gif-captor" class="hiddenClass" src="" controls autoplay></video>
-                    </div> -->
-                    <video id="gif-captor" class="hiddenClass" src="" controls autoplay></video>
-                    <span class="corner-left corner-bottom"></span>
-                    <span class="corner-right corner-bottom"></span>
-                    <h4 id="titleCreateGif">Aquí podrás <br> crear tus propios GIFOS</h4>
-                    <p id="textCreateGif">¡Crea tu GIFO en sólo 3 pasos! <br> (sólo necesitas una cámara para grabar un video)</p>
-                </article>
-            </div>
-            <div class="bottomContainer">
-                <div class="numberButtonsCtn">
-                    <span class="number">1</span>
-                    <span class="number">2</span>
-                    <span class="number">3</span>
-                </div>
-                <div class="hiddenClass" id="counter">
-                   <span></span> 
-                </div>
-            </div>
-            <div class="bottomImage">
-                <img class="pelicula" src="images/pelicula.svg" alt="peliculaImage">
-            </div>
-            <div class="startBtnContainer">
-                <button id="startBtn" class="startBtn">Comenzar</button>
-            </div>
-            
         </section>
     </main>
     <!-- fin main section -->
