@@ -380,7 +380,7 @@ main {
     }
 
  //sección de resultados de búsqueda
-    .NoSearchResultsCtn{
+    .emptySearch{
         display: flex;
         flex-flow: column wrap;
         margin: 2rem 2rem 4rem;
@@ -438,7 +438,7 @@ main {
             }
         }
         //contenedor donde se apendean los gif mostrados
-        .resultsCtn{
+        .searchResultCtn{
             width: 100%; 
             display: flex;
             flex-flow: row wrap;

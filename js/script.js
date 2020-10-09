@@ -17,8 +17,9 @@ searchInput.addEventListener('keyup', autoCompletar);
 searchBarCtn.addEventListener('focusin', iconsSwitch);
 searchBarCtn.addEventListener('focusout', beforeSwitch);
 
-let searchSuggestionsCtn = document.getElementById('suggestionsCtn'); //se trae el contenedor donde van a mostrarse la palabras sugeridas
-let NoSearchResultsCtn = document.getElementById('NoSearchResultsCtn');
+//contenedor donde van a mostrarse las palabras sugeridas
+let searchSuggestionsCtn = document.getElementById('suggestionsCtn');
+
 
 //al levantar la tecla, la funcion autocompletar busca sugerencias
 async function autoCompletar() {
@@ -29,7 +30,7 @@ async function autoCompletar() {
 
         console.log(response);
 
-        searchSuggestionsCtn.innerHTML = ''; //se vacía por completo el contenedor
+        searchSuggestionsCtn.textContent = ''; //se vacía por completo el contenedor
 
         //por cada sugerencia se crea un div contendor juntos con su id.
         response.data.forEach(element => {
@@ -63,43 +64,54 @@ async function autoCompletar() {
     }
 }
 
-//funcion de busqueda
+//función de búsqueda
 
-let gifCardTemplate = document.getElementById('gifCardTemplate').content.firstElementChild; //traer el template
-let resultCtn = document.getElementById('resultCtn'); //traigo el div que contiener el template
-let searchResultsSection = document.getElementById('searchResultsSection'); //traigo la seccion para sacarle el display none y que aparezca
+////traer el template
+let gifCardTemplate = document.getElementById('gifCardTemplate').content.firstElementChild; 
+//div que contiener el template
+let gifFoundContainer = document.getElementById('gifFoundContainer');
+//seccion de resultados, creada con clase hidden en un principio, sólo aparece cuando se realiza una búsqueda.
+let resultsSection = document.getElementById('searchResultsSection');
 let searchTitle = document.getElementById('searchTitle');
+//botón ver más
 let moreBtn = document.getElementById('moreBtn');
 
-//funcion que hace la busqueda
+//hacer la búsqueda
 async function makeSearch(search) {
     let response = await fetch(`https://api.giphy.com/v1/gifs/search?q=${search}&api_key=${apiKey}&limit=${12}`);
 
     let responseParsed = await response.json();
     try {
-        resultCtn.textContent = '';
+        gifFoundContainer.textContent = '';
 
         searchTitle.textContent = searchInput.value;
 
-        searchResultsSection.classList.remove('hiddenClass');
+        searchSuggestionsCtn.textContent = '';
 
-        const gifs = responseParsed.data;
+        resultsSection.classList.remove('hiddenClass');
 
-        if(gifs.length === 0){
+        //si la búsqueda no tiene resultados, mostrar en pantalla imagen y aviso
+        if(responseParsed.data.length === 0){
 
-            resultCtn.classList.add('hiddenClass');
-            NoSearchResultsCtn.classList.remove('hiddenClass');
+            gifFoundContainer.classList.add('hiddenClass');
+            resultsSection.children[1].classList.remove('hiddenClass');
             moreBtn.classList.add('hiddenClass');
             return;
+
+        }else {
+            resultsSection.children[1].classList.add('hiddenClass');
+            moreBtn.classList.remove('hiddenClass');
         }
+        
+        responseParsed.data.forEach( gif => {
+            addGIFsToDOM(gif, gifFoundContainer)
+        });
 
         // moreBtn.addEventListener('mousedown', () => {
         //     makeSearch();
         // })
 
-        responseParsed.data.forEach( gif => { //le paso el parametro gif a la arrow function
-            addGIFsToDOM(gif, resultCtn)
-        });
+        
 
     } catch (error) {
         console.log(error);
@@ -158,11 +170,9 @@ function beforeSwitch() {
 
 crossIcon.addEventListener('mousedown', function() {
     searchInput.value = '';
-    searchSuggestionsCtn.innerHTML = '';
-    resultCtn.innerHTML = ''; //preguntar sobre esto a Mati :)
-    searchTitle.innerHTML = '';
-    searchResultsSection.classList.add('hiddenClass');
-    // NoSearchResultsCtn.classList.remove('NoSearchResultsCtn');
+    searchSuggestionsCtn.textContent = '';
+    gifFoundContainer.textContent = ''; //preguntar sobre esto a Mati :)
+    resultsSection.classList.add('hiddenClass');
 });
 
 //click en el icono lupa hace la búsqueda
@@ -173,18 +183,16 @@ lensIcon.addEventListener('mousedown', () => {
 //tecla ENTER para hacer la busqueda
 
 searchInput.addEventListener('keyup', (e) => {
+
     if( e.keyCode === 13){
-
         makeSearch(searchInput.value);
+        searchSuggestionsCtn.textContent = '';
+        return;
 
-    } 
-    // if (e.keyCode === 8){
-
-    //     searchSuggestionsCtn.innerHTML = '';
-    //     resultCtn.innerHTML = '';
-    //     searchTitle.innerHTML = '';
-    //     NoSearchResultsCtn.classList.remove('NoSearchResultsCtn');
-    // }
+    }else if (e.keyCode === 8){
+        resultsSection.classList.add('hiddenClass');
+        return;
+    }
 });
 
 //agrego a la sección de trendings las palabras más buscadas del momento.
@@ -258,7 +266,7 @@ favoritos.addEventListener('click', () => {
 
     }else if(!searchResultsSection.classList.contains('hiddenClass')){
 
-        searchResultsSection.classList.add('hiddenClass');
+        resultsSection.classList.add('hiddenClass');
 
     }
 });
@@ -285,7 +293,7 @@ misGifos.addEventListener('click', () => {
 
     }else if(!searchResultsSection.classList.contains('hiddenClass')){
 
-        searchResultsSection.classList.add('hiddenClass');
+        resultsSection.classList.add('hiddenClass');
         
     }
 });
@@ -312,7 +320,7 @@ btnCrearGifo.addEventListener('click', () => {
         
     }else if(!searchResultsSection.classList.contains('hiddenClass')){
 
-        searchResultsSection.classList.add('hiddenClass');
+        resultsSection.classList.add('hiddenClass');
         
     }
 });
@@ -341,7 +349,7 @@ home.addEventListener('click', () => {
 
     }else if(!searchResultsSection.classList.contains('hiddenClass')){
 
-        searchResultsSection.classList.add('hiddenClass');
+        resultsSection.classList.add('hiddenClass');
         
     }
 });

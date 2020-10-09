@@ -24,6 +24,10 @@ html[data-theme='dark'] {
   --icon-hover-color: #000000;
 }
 
+.hiddenClass {
+  display: none;
+}
+
 header .menu-icon .nav-icon:before, header .menu-icon .nav-icon:after {
   background: var(--primary-color);
   content: "";
@@ -622,7 +626,7 @@ main .introduction .trendings span {
   }
 }
 
-main .NoSearchResultsCtn {
+main .emptySearch {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -634,34 +638,34 @@ main .NoSearchResultsCtn {
 }
 
 @media (min-width: 1024px) {
-  main .NoSearchResultsCtn {
+  main .emptySearch {
     margin-bottom: 8rem;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  main .NoSearchResultsCtn {
+  main .emptySearch {
     margin-bottom: 8rem;
   }
 }
 
-main .NoSearchResultsCtn img {
+main .emptySearch img {
   margin: 2rem;
 }
 
 @media (min-width: 1024px) {
-  main .NoSearchResultsCtn img {
+  main .emptySearch img {
     margin: 4rem 2rem 1.8rem 2rem;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  main .NoSearchResultsCtn img {
+  main .emptySearch img {
     margin: 4rem 2rem 1.8rem 2rem;
   }
 }
 
-main .NoSearchResultsCtn span {
+main .emptySearch span {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 1.4rem;
@@ -763,7 +767,7 @@ main .searchResults .searchedWord:first-letter {
   }
 }
 
-main .searchResults .resultsCtn {
+main .searchResults .searchResultCtn {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -778,82 +782,82 @@ main .searchResults .resultsCtn {
 }
 
 @media (min-width: 760px) and (max-width: 1024px) {
-  main .searchResults .resultsCtn {
+  main .searchResults .searchResultCtn {
     width: 90%;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  main .searchResults .resultsCtn {
+  main .searchResults .searchResultCtn {
     width: 90%;
   }
 }
 
-main .searchResults .resultsCtn .gifContainer {
+main .searchResults .searchResultCtn .gifContainer {
   position: relative;
   width: 45%;
   margin: .5rem;
 }
 
 @media (min-width: 760px) and (max-width: 1024px) {
-  main .searchResults .resultsCtn .gifContainer {
+  main .searchResults .searchResultCtn .gifContainer {
     width: 30%;
   }
 }
 
 @media (min-width: 1024px) {
-  main .searchResults .resultsCtn .gifContainer {
+  main .searchResults .searchResultCtn .gifContainer {
     width: 20%;
     margin: .8rem;
   }
-  main .searchResults .resultsCtn .gifContainer:hover .filterGif, main .searchResults .resultsCtn .gifContainer:hover .gifInfo, main .searchResults .resultsCtn .gifContainer:hover .gifBtns {
+  main .searchResults .searchResultCtn .gifContainer:hover .filterGif, main .searchResults .searchResultCtn .gifContainer:hover .gifInfo, main .searchResults .searchResultCtn .gifContainer:hover .gifBtns {
     display: initial;
     position: absolute;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  main .searchResults .resultsCtn .gifContainer {
+  main .searchResults .searchResultCtn .gifContainer {
     width: 20%;
     margin: .8rem;
   }
-  main .searchResults .resultsCtn .gifContainer:hover .filterGif, main .searchResults .resultsCtn .gifContainer:hover .gifInfo, main .searchResults .resultsCtn .gifContainer:hover .gifBtns {
+  main .searchResults .searchResultCtn .gifContainer:hover .filterGif, main .searchResults .searchResultCtn .gifContainer:hover .gifInfo, main .searchResults .searchResultCtn .gifContainer:hover .gifBtns {
     display: initial;
     position: absolute;
   }
 }
 
-main .searchResults .resultsCtn .gifContainer .loadedGifCtn .loadedGif {
+main .searchResults .searchResultCtn .gifContainer .loadedGifCtn .loadedGif {
   width: 100%;
   height: 10rem;
 }
 
 @media (min-width: 1024px) {
-  main .searchResults .resultsCtn .gifContainer .loadedGifCtn .loadedGif {
+  main .searchResults .searchResultCtn .gifContainer .loadedGifCtn .loadedGif {
     height: 12rem;
   }
 }
 
 @media (min-width: 760px) and (max-width: 1024px) {
-  main .searchResults .resultsCtn .gifContainer .loadedGifCtn .loadedGif {
+  main .searchResults .searchResultCtn .gifContainer .loadedGifCtn .loadedGif {
     height: 12rem;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  main .searchResults .resultsCtn .gifContainer .loadedGifCtn .loadedGif {
+  main .searchResults .searchResultCtn .gifContainer .loadedGifCtn .loadedGif {
     height: 15rem;
   }
 }
 
-main .searchResults .resultsCtn .gifContainer .gifInfo {
+main .searchResults .searchResultCtn .gifContainer .gifInfo {
   display: none;
   bottom: 2rem;
   left: 1rem;
   z-index: 1000;
 }
 
-main .searchResults .resultsCtn .gifContainer .gifInfo h5 {
+main .searchResults .searchResultCtn .gifContainer .gifInfo h5 {
   font-family: 'Roboto', sans-serif;
   font-weight: bold;
   font-size: .8rem;
@@ -861,61 +865,61 @@ main .searchResults .resultsCtn .gifContainer .gifInfo h5 {
 }
 
 @media (min-width: 1024px) {
-  main .searchResults .resultsCtn .gifContainer .gifInfo h5 {
+  main .searchResults .searchResultCtn .gifContainer .gifInfo h5 {
     color: #FFFFFF;
     font-size: 1rem;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  main .searchResults .resultsCtn .gifContainer .gifInfo h5 {
+  main .searchResults .searchResultCtn .gifContainer .gifInfo h5 {
     color: #FFFFFF;
     font-size: 1rem;
   }
 }
 
 @media (min-width: 760px) and (max-width: 1024px) {
-  main .searchResults .resultsCtn .gifContainer .gifInfo h5 {
+  main .searchResults .searchResultCtn .gifContainer .gifInfo h5 {
     color: #FFFFFF;
     font-size: 1rem;
   }
 }
 
-main .searchResults .resultsCtn .gifContainer .gifInfo span {
+main .searchResults .searchResultCtn .gifContainer .gifInfo span {
   font-family: 'Roboto', sans-serif;
   font-size: .6rem;
   color: var(--text-color);
 }
 
 @media (min-width: 1024px) {
-  main .searchResults .resultsCtn .gifContainer .gifInfo span {
+  main .searchResults .searchResultCtn .gifContainer .gifInfo span {
     color: #FFFFFF;
     font-size: .8rem;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  main .searchResults .resultsCtn .gifContainer .gifInfo span {
+  main .searchResults .searchResultCtn .gifContainer .gifInfo span {
     color: #FFFFFF;
     font-size: .8rem;
   }
 }
 
 @media (min-width: 760px) and (max-width: 1024px) {
-  main .searchResults .resultsCtn .gifContainer .gifInfo span {
+  main .searchResults .searchResultCtn .gifContainer .gifInfo span {
     color: #FFFFFF;
     font-size: .8rem;
   }
 }
 
-main .searchResults .resultsCtn .gifContainer .gifBtns {
+main .searchResults .searchResultCtn .gifContainer .gifBtns {
   display: none;
   right: 1rem;
   top: 1rem;
   z-index: 1000;
 }
 
-main .searchResults .resultsCtn .gifContainer .gifBtns button {
+main .searchResults .searchResultCtn .gifContainer .gifBtns button {
   cursor: pointer;
   border: 1px solid #CED7E1;
   border-radius: 6px;
@@ -925,13 +929,13 @@ main .searchResults .resultsCtn .gifContainer .gifBtns button {
   width: 32px;
 }
 
-main .searchResults .resultsCtn .gifContainer .gifBtns button .fa-heart, main .searchResults .resultsCtn .gifContainer .gifBtns button .fa-download, main .searchResults .resultsCtn .gifContainer .gifBtns button .fa-expand-alt {
+main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-heart, main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-download, main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-expand-alt {
   color: var(--deselect-icons-color);
   font-size: 1.3rem;
 }
 
 @media (min-width: 1024px) {
-  main .searchResults .resultsCtn .gifContainer .filterGif {
+  main .searchResults .searchResultCtn .gifContainer .filterGif {
     cursor: pointer;
     background: var(--bg-cards-hover);
     width: 100%;
@@ -944,7 +948,7 @@ main .searchResults .resultsCtn .gifContainer .gifBtns button .fa-heart, main .s
 }
 
 @media screen and (min-width: 1440px) {
-  main .searchResults .resultsCtn .gifContainer .filterGif {
+  main .searchResults .searchResultCtn .gifContainer .filterGif {
     height: 15rem;
   }
 }
