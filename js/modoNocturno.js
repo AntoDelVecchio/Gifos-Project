@@ -1,17 +1,22 @@
 //Modo Nocturno
 
 let checkbox = document.querySelector('input[name=theme]');
+let menuBtn = document.getElementById('menu-btn');
 
 checkbox.addEventListener('click', function() {
+  
   if(this.checked) {
     transition();
     document.documentElement.setAttribute('data-theme', 'dark');
     changeImage();
+    
   }else {
     transition();
     document.documentElement.setAttribute('data-theme', 'light');
     changeImage();
   }
+
+  menuBtn.checked = false;
 })
 
 function changeImage() {

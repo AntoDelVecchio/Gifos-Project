@@ -1,6 +1,6 @@
-//botones 1, 2, 3 -> para traerlos todos juntos.
 
-let [filmStage1, filmStage2, filmStage3] = Array.from(document.querySelectorAll('span.number'));
+
+let [filmStage1, filmStage2, filmStage3] = Array.from(document.querySelectorAll('span.number')); //botones 1, 2, 3 -> para traerlos todos juntos.
 let startBtn = document.getElementById('startBtn');
 let titleCreateGif = document.getElementById('titleCreateGif');
 let textCreateGif = document.getElementById('textCreateGif');
@@ -8,6 +8,7 @@ const video = document.getElementById("gif-captor");
 let counter = document.getElementById('counter');
 let reRecordBtn = counter.children[0];
 let misGifosArray = JSON.parse(localStorage.getItem('misGifos'));
+let createOverlay = document.querySelector('#overlay');
 
 if(misGifosArray === null) {
     misGifosArray = [];
@@ -111,7 +112,7 @@ function thirdStage() {
 	contador++;
 }
 
-function fourthtStage(){
+function fourthtStage() {
     //Agregar evento para repetir captura y
     //Resetear todos los botones al estado correspondiente
     recorder.stopRecording(onStop);
@@ -132,8 +133,12 @@ function fourthtStage(){
 
 	contador++;
 }
-
+let loaderImage = document.getElementById('loaderImage');
+let loaderText = document.getElementById('loaderText');
 async function fifthStage() {
+
+    createOverlay.classList.remove('hiddenClass');
+    createOverlay.classList.add('loading');
 
     let form = new FormData();
     form.append('file', gif, 'newGif.gif');
@@ -147,9 +152,12 @@ async function fifthStage() {
     let data = await response.json();
     console.log(data.data);
 
-	// misGifosArray.push(data.data.id);
+    uploadComplete();
 
-	// localStorage.setItem('misGifos', JSON.stringify(misGifosArray));
+	misGifosArray.push(data.data.id);
+
+    localStorage.setItem('misGifos', JSON.stringify(misGifosArray));
+    console.log(localStorage);
 
 	counter.classList.add('hiddenClass');
 	counter.classList.remove('counter');
@@ -162,3 +170,23 @@ function onStop() {
     //generar archivo para subir
     console.log('yuuupi!!');
 }
+
+function uploadComplete() {
+
+    if (loaderImage.src.match("images/loader.svg")) {
+
+        loaderImage.src = "images/check.svg";
+        loaderImage.style.animation= 'none';
+        return;
+    }
+
+    loaderText.innerHTML = 'GIFO subido con éxito'; 
+}
+
+//contador
+
+// function interval() {
+//     setInterval(() => {
+    
+//     }, intervalEnMiliSegundos);
+// }

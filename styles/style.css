@@ -108,6 +108,36 @@ html.transition *:after {
   }
 }
 
+@-webkit-keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+@keyframes rotation {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  50% {
+    -webkit-transform: rotate(180deg);
+            transform: rotate(180deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
 header {
   width: 100%;
   border-top: 0.3rem solid var(--bg-border);
@@ -1536,16 +1566,10 @@ main .createGif {
             justify-content: flex-start;
     -ms-flex-item-align: center;
         align-self: center;
+    position: absolute;
+    left: 20%;
+    top: 30%;
   }
-}
-
-@media screen and (min-width: 1024px) and (min-width: 1440px) {
-  main .createGif .lightsCameraAction {
-    margin-left: -15rem;
-  }
-}
-
-@media (min-width: 1024px) {
   main .createGif .lightsCameraAction .camImage {
     width: 6rem;
   }
@@ -1721,7 +1745,7 @@ main .createGif {
     text-transform: uppercase;
     height: 1rem;
   }
-  main .createGif .bottomContainer .counterCtn .counter .repetirCapturaHover:hover {
+  main .createGif .bottomContainer .counterCtn .repetirCapturaHover:hover {
     border-bottom: 3px solid var(--secondary-color);
   }
   main .createGif .bottomLine {
@@ -1785,6 +1809,41 @@ main .createGif {
 
 main .hiddenClass {
   display: none;
+}
+
+main .loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 75%;
+  height: 75%;
+  background-color: rgba(87, 46, 229, 0.7);
+  z-index: 1000;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+main .loading img {
+  -webkit-animation: rotation 1s infinite linear;
+          animation: rotation 1s infinite linear;
+}
+
+main .loading .loadingText {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  color: #FFFFFF;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 footer {
