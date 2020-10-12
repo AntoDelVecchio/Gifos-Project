@@ -561,6 +561,7 @@ main {
         text-align: center;
         display: flex;
         flex-flow: column wrap;
+        align-content: center;
         text-align: center;
         padding-bottom: 3rem;
         h2{
@@ -590,9 +591,9 @@ main {
         .carouselWrapper{
             margin-top: 2rem;
             @include respond-to(desktop-screen, tablet-screen) {
-                width: 100%;
+                width: 90%;
                 display: flex;
-                flex-flow: row wrap;
+                flex-flow: row;
                 justify-content: center;
                 margin-top: 2.5rem;
             }
@@ -601,7 +602,7 @@ main {
                 &:hover{
                     @extend %hover-buttons;
                 }
-                @include respond-to(xlg-screen ,desktop-screen, tablet-screen) {
+                @include respond-to(xlg-screen ,desktop-screen) {
                     display: initial;
                     height: 40px;
                     width: 40px;
@@ -613,36 +614,120 @@ main {
                     .fa-chevron-left, .fa-chevron-right{
                         font-size: 1.25rem;
                     }
+                    // .left{
+                    //     transform: translate(-20px, 100px);
+                    // }
+                    // .right{
+                    //     transform: translate(20px, 100px);
+                    // }
                 }
             }
-            .carousel{
+            .carouselCtn{
+                position: relative;
+                align-items: center;
+                justify-content: space-between;
                 display: flex;
-                flex-flow: column wrap;
-                justify-content: center;
-                @include respond-to(desktop-screen, tablet-screen) {
-                    display: flex;
-                    flex-flow: row wrap;
-                    justify-content: space-evenly;
-                    width: 85%;
+                overflow-x: scroll;
+                position: relative;
+                width: 100vw;
+                &::-webkit-scrollbar{
+                    display: none;
+                }
+                @include respond-to(desktop-screen) {
+                    overflow: hidden;
+                    max-width: 800px;
+                    margin: 0 1rem;
                 }
                 @include respond-to(xlg-screen){
-                    width: 65%;
+                    max-width: 1100px;
                 }
-                .carouselImage{
-                    width: 70%;
-                    height: 15rem;
+                .carousel{
+                    margin-left: inherit;
+                    position: relative;
                     display: flex;
-                    align-self: center;
-                    @include respond-to(xlg-screen, desktop-screen, tablet-screen) {
-                        width: 30%;
-                        flex-flow: row wrap;
-                        justify-content: center;
-                    }
-                }
-                .hidden{
-                    display: none;
-                    @include respond-to(tablet-screen, desktop-screen, xlg-screen) {
-                        display: initial;
+                    margin-left: 1rem;
+                    transition: transform 0.35s ease 0s;
+                    .gifContainer{
+                        position: relative;
+                        height: inherit;
+                        width: auto;
+                        margin-right: 1.3rem;
+                        @include respond-to(desktop-screen, xlg-screen) {
+                            &:hover{
+                                .filterGif, .gifInfo, .gifBtns{
+                                    display: initial;
+                                    position: absolute;
+                                }
+                            }
+                        }
+                        .loadedGif{
+                            position: relative;
+                            width: 257px;
+                            height: 15rem;
+                            display: flex;
+                            align-self: center;
+                            @include respond-to(desktop-screen, xlg-screen) {
+                                width: 357px;
+                            }
+                        }
+                        //info y botones para cada gif mostrado
+                        .gifInfo{
+                            display: none;
+                            z-index: 1000;
+                            bottom: 1rem;
+                            left: 2px;
+                            text-align: left;
+                            h5{
+                                font-family: 'Roboto', sans-serif;
+                                font-weight: bold;
+                                font-size: .8rem;
+                                color: var(--text-color);
+                                @include respond-to(desktop-screen, xlg-screen, tablet-screen) {
+                                    color: #FFFFFF;
+                                    font-size: 1rem;
+                                }
+                            }
+                            span{
+                                font-family: 'Roboto', sans-serif;
+                                font-size: .6rem;
+                                color: var(--text-color);
+                                @include respond-to(desktop-screen, xlg-screen, tablet-screen) {
+                                    color: #FFFFFF;
+                                    font-size: .8rem;
+                                }
+                            }
+                        }
+                        .gifBtns{
+                            display: none;
+                            right: 1rem;
+                            top: 1rem;
+                            z-index: 1000;
+                            button{
+                                cursor: pointer;
+                                border: 1px solid #CED7E1; //ver este color
+                                border-radius: 6px;
+                                background: #FFFFFF;
+                                opacity: 0.7;
+                                height: 32px;
+                                width: 32px;
+                                .fa-heart, .fa-download, .fa-expand-alt{
+                                    color: var(--deselect-icons-color);
+                                    font-size: 1.3rem;
+                                }
+                            }
+                        }
+                        .filterGif {
+                            @include respond-to(desktop-screen){
+                                cursor: pointer;
+                                background: var(--bg-cards-hover);
+                                width: 100%;
+                                height: 15rem;
+                                opacity: 70%;
+                                display: none;
+                                top: 0;
+                                left: 0;
+                            }
+                        }
                     }
                 }
             }
@@ -942,7 +1027,7 @@ main {
                         text-transform: uppercase;
                         height: 1rem;
                     }
-                    .repetirCapturaHover{
+                    .repeatHover{
                         &:hover {
                          border-bottom: 3px solid var(--secondary-color);
                         }

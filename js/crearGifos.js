@@ -19,10 +19,10 @@ let gif;
 
 
 startBtn.addEventListener('click', recordProcess);
-let contador = 0;
+let StageCounter = 0;
 
 function recordProcess() {
-    switch(contador){
+    switch(StageCounter){
         case 0:
             firstStage();
             break;
@@ -63,7 +63,7 @@ function firstStage() {
     // successCallback
     function(localMediaStream) {
         video.srcObject = localMediaStream;
-        contador++;
+        StageCounter++;
         recordProcess();
     },
     
@@ -71,7 +71,7 @@ function firstStage() {
     function(err) { 
         alert('Dar permiso para grabar');
         console.log('Ocurrió el siguiente error: ' + err);
-        contador = 0;
+        StageCounter = 0;
     }
     
     );
@@ -85,7 +85,7 @@ function secondStage(){
 	textCreateGif.classList.add('hiddenClass');
 	filmStage1.classList.remove('isCurrent');
 	filmStage2.classList.add('isCurrent');
-	contador++;
+	StageCounter++;
 }
 
 function thirdStage() {
@@ -95,7 +95,7 @@ function thirdStage() {
 	}).then(async function(stream) {
 		recorder = RecordRTC(stream, {
 			type: 'gif',
-			frameRate: 1,
+			frameRate: 30,
 			quality: 10,
 			width: 360,
 			hidden: 240,
@@ -105,11 +105,11 @@ function thirdStage() {
 		});
 		recorder.startRecording();
 	});
-    counter.classList.add('counter');
+    counter.children[0].classList.add('counter');
 	counter.classList.remove('hiddenClass');
 	reRecordBtn.textContent	 = '00:00:00'
 	startBtn.textContent = 'finalizar';
-	contador++;
+	StageCounter++;
 }
 
 function fourthtStage() {
@@ -121,20 +121,19 @@ function fourthtStage() {
 
 	startBtn.textContent = 'subir gifo';
 	reRecordBtn.textContent = 'repetir captura';
-    reRecordBtn.classList.add('repetirCapturaHover');
+    reRecordBtn.classList.add('repeatHover');
     
     reRecordBtn.addEventListener('click', () => {
-        contador = 1;
-        reRecordBtn.classList.remove('repetirCapturaHover');
+        StageCounter = 1;
+        reRecordBtn.classList.remove('repeatHover');
         counter.classList.add('hiddenClass');
         reRecordBtn.textContent = '';
         recordProcess();
-    });
+    })
 
-	contador++;
+	StageCounter++;
 }
-let loaderImage = document.getElementById('loaderImage');
-let loaderText = document.getElementById('loaderText');
+
 async function fifthStage() {
 
     createOverlay.classList.remove('hiddenClass');
@@ -172,6 +171,8 @@ function onStop() {
 }
 
 function uploadComplete() {
+    let loaderImage = document.getElementById('loaderImage');
+    let loaderText = document.getElementById('loaderText');
 
     if (loaderImage.src.match("images/loader.svg")) {
 
@@ -190,3 +191,19 @@ function uploadComplete() {
     
 //     }, intervalEnMiliSegundos);
 // }
+
+// let timerSet = setInterval(setTimer, 1000);
+
+// function setTimer() {
+//     if (stoppedFlag == true) {
+//         clearInterval(timerSet)
+//         s = 0;
+//     }else {
+//         let timeValue = new Date(s * 1000).toISOString().substr(11, 8)
+//         timer.textContent = timeValue;
+//         s++;
+//     }
+// };
+
+// let s = 0;
+// stoppedFlag = false;

@@ -246,3 +246,56 @@ async function getTrendingsWords() {
 
 getTrendingsWords();
 
+//carousel
+
+// function appendCarousel(searchResults, container) {
+
+//     data.forEach(result => {
+
+//       let resultGif=document.createElement("div");
+//       resultGif.classList.add("result-placeholder");
+//       resultGif.setAttribute('id', result-item-${offset});
+//       resultGif.style.backgroundImage=url("${result.images.fixed_width.url}");
+
+//       resultGif.appendChild(createOverlay(result));
+//       container.appendChild(resultGif);
+//       container.style.display="flex";
+
+//       offset++;
+//     });
+
+// }
+
+let carouselCtn = document.querySelector('.carousel');
+
+async function showTrendingGifs() {
+    try {
+        let responseGif = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=10`);
+        responseGif = await responseGif.json();
+        // console.log(responseGif);
+
+        responseGif.data.forEach(gif => {
+            addGIFsToDOM(gif, carouselCtn)
+        });
+
+    } catch (error) {
+        console.log(`Trending Gifs: \n${error}`);
+    }
+}
+
+showTrendingGifs();
+
+let carouselWrapper = document.querySelector('.carouselWrapper');
+let carouselScroll = 0;
+
+carouselWrapper.firstElementChild.addEventListener("mousedown", () => {
+    carouselScroll = (carouselScroll < -180) ? carouselScroll + 180 : 0;
+    carouselCtn.style.marginLeft = `${carouselScroll}px`;
+});
+
+carouselWrapper.lastElementChild.addEventListener("mousedown", () => {
+    const width = carouselCtn.offsetWidth;
+    const ctnWidth = carouselCtn.parentElement.offsetWidth;
+    carouselScroll = (carouselScroll > -(width - ctnWidth - 180)) ? carouselScroll - 180 : -(width - ctnWidth);
+    carouselCtn.style.marginLeft =`${carouselScroll}px`;
+});
