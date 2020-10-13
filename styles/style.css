@@ -1158,10 +1158,8 @@ main .trendGifos .carouselWrapper .carouselCtn .carousel {
   display: -ms-flexbox;
   display: flex;
   margin-left: 1rem;
-  -webkit-transition: -webkit-transform 0.35s ease 0s;
-  transition: -webkit-transform 0.35s ease 0s;
-  transition: transform 0.35s ease 0s;
-  transition: transform 0.35s ease 0s, -webkit-transform 0.35s ease 0s;
+  -webkit-transition: margin 0.35s ease 0s;
+  transition: margin 0.35s ease 0s;
 }
 
 main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer {

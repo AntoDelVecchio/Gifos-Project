@@ -20,7 +20,7 @@ favoritos.addEventListener('click', () => {
     if(!misGifosSection.classList.contains('hiddenClass')){
 
         misGifosSection.classList.add('hiddenClass');
-        misGifos.classList.remove('activeTab');
+        misGifosBtn.classList.remove('activeTab');
 
     }else if(!creatGifSection.classList.contains('hiddenClass')) {
 
@@ -36,13 +36,13 @@ favoritos.addEventListener('click', () => {
 });
 
 //seccion mis gifos
-let misGifos = document.getElementById('misGifos');
+let misGifosBtn = document.getElementById('misGifosBtn');
 let misGifosSection = document.getElementById('misGifosSection');
 
-misGifos.addEventListener('click', () => {
+misGifosBtn.addEventListener('click', () => {
     misGifosSection.classList.remove('hiddenClass');
     introductionSection.classList.add('hiddenClass');
-    misGifos.classList.add('activeTab');
+    misGifosBtn.classList.add('activeTab');
 
     if(!favoritosSection.classList.contains('hiddenClass')){
 
@@ -80,7 +80,7 @@ btnCrearGifo.addEventListener('click', () => {
     }else if(!misGifosSection.classList.contains('hiddenClass')){
 
         misGifosSection.classList.add('hiddenClass');
-        misGifos.classList.remove('activeTab');
+        misGifosBtn.classList.remove('activeTab');
         
     }else if(!searchResultsSection.classList.contains('hiddenClass')){
 
@@ -104,7 +104,7 @@ home.addEventListener('click', () => {
     }else if(!misGifosSection.classList.contains('hiddenClass')){
 
         misGifosSection.classList.add('hiddenClass');
-        misGifos.classList.remove('activeTab');
+        misGifosBtn.classList.remove('activeTab');
 
     }else if(!creatGifSection.classList.contains('hiddenClass')) {
 

@@ -7,8 +7,8 @@ let textCreateGif = document.getElementById('textCreateGif');
 const video = document.getElementById("gif-captor");
 let counter = document.getElementById('counter');
 let reRecordBtn = counter.children[0];
-let misGifosArray = JSON.parse(localStorage.getItem('misGifos'));
 let createOverlay = document.querySelector('#overlay');
+let misGifosArray = JSON.parse(localStorage.getItem('misGifos'));
 
 if(misGifosArray === null) {
     misGifosArray = [];
@@ -103,11 +103,12 @@ function thirdStage() {
 			 console.log('started')
 			}
 		});
-		recorder.startRecording();
+        recorder.startRecording();
+        setTimer();
 	});
     counter.children[0].classList.add('counter');
 	counter.classList.remove('hiddenClass');
-	reRecordBtn.textContent	 = '00:00:00'
+    // reRecordBtn.textContent	 = '00:00:00';
 	startBtn.textContent = 'finalizar';
 	StageCounter++;
 }
@@ -186,24 +187,85 @@ function uploadComplete() {
 
 //contador
 
-// function interval() {
-//     setInterval(() => {
+let timerSet = setInterval(setTimer, 1000);
+
+function setTimer() {
     
-//     }, intervalEnMiliSegundos);
-// }
+    if (stoppedFlag == true) {
+        clearInterval(timerSet)
+        s = 0;
+    }else {
+        let timeValue = new Date(s * 1000).toISOString().substr(11, 8)
+        reRecordBtn.textContent = timeValue;
+        s++;
+    }
+};
 
-// let timerSet = setInterval(setTimer, 1000);
+let s = 0;
+stoppedFlag = false;
 
-// function setTimer() {
-//     if (stoppedFlag == true) {
-//         clearInterval(timerSet)
-//         s = 0;
-//     }else {
-//         let timeValue = new Date(s * 1000).toISOString().substr(11, 8)
-//         timer.textContent = timeValue;
-//         s++;
-//     }
-// };
+//seccion mis gifos
+let gifosString = misGifosArray.toString();
 
-// let s = 0;
-// stoppedFlag = false;
+let misGifosCtn = document.getElementById('misGifosCtn');
+
+async function misGifos(gifosString) {
+    try {
+        if(misGifosArray.length == 1){
+            let response = await fetch(`https://api.giphy.com/v1/gifs/${gifosString}?&api_key=${apiKey}`);
+            let responseParsed = await response.json();
+            responseParsed.data.forEach((gif) => {
+                addGIFsToDOM(gif, misGifosCtn)
+            });
+        }else if(misGifosArray.length > 1){
+            let response = await fetch(`https://api.giphy.com/v1/gifs?ids=${gifosString}?&api_key=${apiKey}`);
+            let responseParsed = await response.json();
+            responseParsed.data.forEach((gif) => {
+                addGIFsToDOMErase(gif, misGifosCtn)
+            });
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+misGifos(gifosString);
+
+function addGIFsToDOMErase(gif, contenedor) {
+
+    let gifCardTemplateClone = gifCardTemplate.cloneNode(true); //clonar template
+
+    //datos del gif
+    let gifTitle = gifCardTemplateClone.children[0].children[0];
+    gifTitle.textContent = gif.title || 'Sin título';
+
+    let gifUserName = gifCardTemplateClone.children[0].children[1];
+    gifUserName.textContent = gif.username || 'Anónimo';
+
+    //traer el gif desde la url height. gif es data[x]
+    let trueGif = gifCardTemplateClone.children[1].children[0];
+    trueGif.src = gif.images.fixed_height.url; 
+
+    //alt del gif
+    let gifAlt = gifCardTemplateClone.children[1].children[0];
+    gifAlt.alt = gif.title; 
+
+    // gifCardTemplateClone.children[0].id = gif.id; no usamos
+
+    //funcionalidades botones
+    // TO-DO --> eventListeners
+    let eraseGifIcon = gifCardTemplateClone.children[2].children[0].children[0];
+    eraseGifIcon.classList.remove('fa-heart');
+    eraseGifIcon.classList.add('fa-trash-alt');
+    eraseGifIcon.id = gif.id;
+    // eraseGifIcon.addEventListener('click', addToFavorites);
+
+    let gifDownloadIcon = gifCardTemplateClone.children[2].children[1];
+    // gifDownloadIcon. = ;
+
+    let gifExpandIcon = gifCardTemplateClone.children[2].children[2];
+    // gifExpandIcon. = ;
+
+    contenedor.appendChild(gifCardTemplateClone); //se apendea este contenedor al nodo clonado.
+}

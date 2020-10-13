@@ -194,7 +194,7 @@ function addGIFsToDOM(gif, contenedor) {
     // TO-DO --> eventListeners
     let gifFavIcon = gifCardTemplateClone.children[2].children[0];
     gifFavIcon.id = gif.id;
-    gifFavIcon.addEventListener('click', addToFavorites);
+    // gifFavIcon.addEventListener('click', addToFavorites);
 
     let gifDownloadIcon = gifCardTemplateClone.children[2].children[1];
     // gifDownloadIcon. = ;
@@ -206,12 +206,12 @@ function addGIFsToDOM(gif, contenedor) {
 }
 
 
-function addToFavorites() {
-    if (localStorage.getItem('favorites') == null) {
-        localStorage.setItem('favorites', `[${this.id}]`);
-    }
-    console.log(localStorage);
-}
+// function addToFavorites() {
+//     if (localStorage.getItem('favorites') == null) {
+//         localStorage.setItem('favorites', `[${this.id}]`);
+//     }
+//     console.log(localStorage);
+// }
 
 let trendingWordsCtn = document.getElementById('trendingWordsCtn');
 async function getTrendingsWords() {
@@ -248,24 +248,6 @@ getTrendingsWords();
 
 //carousel
 
-// function appendCarousel(searchResults, container) {
-
-//     data.forEach(result => {
-
-//       let resultGif=document.createElement("div");
-//       resultGif.classList.add("result-placeholder");
-//       resultGif.setAttribute('id', result-item-${offset});
-//       resultGif.style.backgroundImage=url("${result.images.fixed_width.url}");
-
-//       resultGif.appendChild(createOverlay(result));
-//       container.appendChild(resultGif);
-//       container.style.display="flex";
-
-//       offset++;
-//     });
-
-// }
-
 let carouselCtn = document.querySelector('.carousel');
 
 async function showTrendingGifs() {
@@ -299,3 +281,25 @@ carouselWrapper.lastElementChild.addEventListener("mousedown", () => {
     carouselScroll = (carouselScroll > -(width - ctnWidth - 180)) ? carouselScroll - 180 : -(width - ctnWidth);
     carouselCtn.style.marginLeft =`${carouselScroll}px`;
 });
+
+//fullscreen
+// function displayFullScreen() {
+// 	let gif = this.parentElement; //Si se llegó presionando la imagen (mobile).
+// 	if (!gif.classList.contains("gifContainer")) {
+// 		gif = gif.parentElement.parentElement; //Si se llegó presionando el botón (desktop).
+// 	}
+
+// 	//a. El usuario entró a modo fullscreen.
+// 	if (gif.id !== "on-fullscreen-gif") {
+// 		gif.children[1].children[0].lastElementChild.classList.remove("fa-download");
+// 		gif.children[1].children[0].lastElementChild.classList.add("fa-times");
+// 		gif.setAttribute("id", "on-fullscreen-gif");
+// 		return;
+// 	}
+
+// 	//b. El usuario quiere salir de modo fullscreen.
+// 	gif.children[1].children[0].lastElementChild.classList.remove("fa-times");
+// 	gif.children[1].children[0].lastElementChild.classList.add("fa-download");
+// 	gif.setAttribute("id", "");
+
+// }
