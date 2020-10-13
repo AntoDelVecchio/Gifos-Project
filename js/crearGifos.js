@@ -215,13 +215,13 @@ async function misGifos(gifosString) {
             let response = await fetch(`https://api.giphy.com/v1/gifs/${gifosString}?&api_key=${apiKey}`);
             let responseParsed = await response.json();
             responseParsed.data.forEach((gif) => {
-                addGIFsToDOM(gif, misGifosCtn)
+                addMyGifosToDOM(gif, misGifosCtn)
             });
         }else if(misGifosArray.length > 1){
             let response = await fetch(`https://api.giphy.com/v1/gifs?ids=${gifosString}?&api_key=${apiKey}`);
             let responseParsed = await response.json();
             responseParsed.data.forEach((gif) => {
-                addGIFsToDOMErase(gif, misGifosCtn)
+                addMyGifosToDOM(gif, misGifosCtn)
             });
         }
 
@@ -232,7 +232,7 @@ async function misGifos(gifosString) {
 
 misGifos(gifosString);
 
-function addGIFsToDOMErase(gif, contenedor) {
+function addMyGifosToDOM(gif, contenedor) {
 
     let gifCardTemplateClone = gifCardTemplate.cloneNode(true); //clonar template
 

@@ -1544,7 +1544,7 @@ main .section .gifCtn .gifContainer .gifBtns button {
   width: 32px;
 }
 
-main .section .gifCtn .gifContainer .gifBtns button .fa-heart, main .section .gifCtn .gifContainer .gifBtns button .fa-download, main .section .gifCtn .gifContainer .gifBtns button .fa-expand-alt {
+main .section .gifCtn .gifContainer .gifBtns button .fa-heart, main .section .gifCtn .gifContainer .gifBtns button .fa-download, main .section .gifCtn .gifContainer .gifBtns button .fa-expand-alt, main .section .gifCtn .gifContainer .gifBtns button .fa-trash-alt {
   color: var(--deselect-icons-color);
   font-size: 1.3rem;
 }
