@@ -14,8 +14,27 @@ if(misGifosArray === null) {
     misGifosArray = [];
 }
 
+
 let recorder;
 let gif;
+
+//contador
+let s = 0;
+stoppedFlag = false;
+let timerSet = 0;
+
+function setTimer() {
+
+    if (stoppedFlag == true) {
+        clearInterval(timerSet)
+        s = 0;
+    }else {
+        let timeValue = new Date(s * 1000).toISOString().substr(11, 8)
+        reRecordBtn.textContent = timeValue;
+        s++;
+    }
+    
+};
 
 
 startBtn.addEventListener('click', recordProcess);
@@ -104,7 +123,8 @@ function thirdStage() {
 			}
 		});
         recorder.startRecording();
-        setTimer();
+        stoppedFlag = false;
+        timerSet = setInterval(setTimer, 1000);
 	});
     counter.children[0].classList.add('counter');
 	counter.classList.remove('hiddenClass');
@@ -168,6 +188,7 @@ async function fifthStage() {
 
 function onStop() {
     //generar archivo para subir
+    stoppedFlag = true;
     console.log('yuuupi!!');
 }
 
@@ -185,44 +206,42 @@ function uploadComplete() {
     loaderText.innerHTML = 'GIFO subido con éxito'; 
 }
 
-//contador
-
-let timerSet = setInterval(setTimer, 1000);
-
-function setTimer() {
-    
-    if (stoppedFlag == true) {
-        clearInterval(timerSet)
-        s = 0;
-    }else {
-        let timeValue = new Date(s * 1000).toISOString().substr(11, 8)
-        reRecordBtn.textContent = timeValue;
-        s++;
-    }
-};
-
-let s = 0;
-stoppedFlag = false;
 
 //seccion mis gifos
 let gifosString = misGifosArray.toString();
 
 let misGifosCtn = document.getElementById('misGifosCtn');
+let emptyMessage = document.getElementById('emptyMisGifosSection');
+let moreBtnMisGifos = document.getElementById('moreBtnMisGifos');
 
-async function misGifos(gifosString) {
+async function showGifos(gifosArray, container) {
     try {
-        if(misGifosArray.length == 1){
+
+        let gifosString = gifosArray.toString();
+
+        if(gifosArray.length == 1){
             let response = await fetch(`https://api.giphy.com/v1/gifs/${gifosString}?&api_key=${apiKey}`);
             let responseParsed = await response.json();
             responseParsed.data.forEach((gif) => {
-                addMyGifosToDOM(gif, misGifosCtn)
+                addGIFsToDOM(gif, container)
             });
-        }else if(misGifosArray.length > 1){
-            let response = await fetch(`https://api.giphy.com/v1/gifs?ids=${gifosString}?&api_key=${apiKey}`);
+            moreBtnMisGifos.classList.add('hiddenClass');
+        }else if(gifosArray.length > 1){
+            let response = await fetch(`https://api.giphy.com/v1/gifs?ids=${gifosString},?&api_key=${apiKey}`);
             let responseParsed = await response.json();
             responseParsed.data.forEach((gif) => {
-                addMyGifosToDOM(gif, misGifosCtn)
+                addGIFsToDOM(gif, container)
             });
+            moreBtnMisGifos.classList.add('hiddenClass');
+            
+            // if(gifosArray.length > 12){ 
+            //     moreBtnMisGifos.classList.remove('hiddenClass');
+            // }
+        }
+
+        if(gifosArray.length !== 0) {
+            emptyMessage.classList.remove('emptySection');
+            emptyMessage.classList.add('hiddenClass');
         }
 
     } catch (error) {
@@ -230,42 +249,23 @@ async function misGifos(gifosString) {
     }
 }
 
-misGifos(gifosString);
+// showGifos(misGifosArray, misGifosCtn);
 
-function addMyGifosToDOM(gif, contenedor) {
+//favorites
 
-    let gifCardTemplateClone = gifCardTemplate.cloneNode(true); //clonar template
+let favsCtn = document.getElementById('favsCtn');
 
-    //datos del gif
-    let gifTitle = gifCardTemplateClone.children[0].children[0];
-    gifTitle.textContent = gif.title || 'Sin título';
+console.log(favGifsArray);
 
-    let gifUserName = gifCardTemplateClone.children[0].children[1];
-    gifUserName.textContent = gif.username || 'Anónimo';
+function addToFavorites() {
 
-    //traer el gif desde la url height. gif es data[x]
-    let trueGif = gifCardTemplateClone.children[1].children[0];
-    trueGif.src = gif.images.fixed_height.url; 
+    favGifsArray.push(this.id);
+    localStorage.setItem('favGifs', JSON.stringify(favGifsArray));
 
-    //alt del gif
-    let gifAlt = gifCardTemplateClone.children[1].children[0];
-    gifAlt.alt = gif.title; 
+}
 
-    // gifCardTemplateClone.children[0].id = gif.id; no usamos
+// showGifos(favGifsArray, favsCtn);
 
-    //funcionalidades botones
-    // TO-DO --> eventListeners
-    let eraseGifIcon = gifCardTemplateClone.children[2].children[0].children[0];
-    eraseGifIcon.classList.remove('fa-heart');
-    eraseGifIcon.classList.add('fa-trash-alt');
-    eraseGifIcon.id = gif.id;
-    // eraseGifIcon.addEventListener('click', addToFavorites);
+function deleteMyGifo() {
 
-    let gifDownloadIcon = gifCardTemplateClone.children[2].children[1];
-    // gifDownloadIcon. = ;
-
-    let gifExpandIcon = gifCardTemplateClone.children[2].children[2];
-    // gifExpandIcon. = ;
-
-    contenedor.appendChild(gifCardTemplateClone); //se apendea este contenedor al nodo clonado.
 }

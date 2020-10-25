@@ -11,6 +11,8 @@ html {
     --bg: #FFFFFF;
     --bg-border: #572EE5;
     --deselect-icons-color: rgba(87,46,229,0.70);
+    --bg-max-view: rgba(255,255,255,0.90);
+    --max-view-buttons: rgba(87,46,229,0.70);
 
     --text-color: #000000;
     --icon-hover-color: #FFFFFF;
@@ -21,6 +23,8 @@ html[data-theme='dark']{
     --bg-menu: #000000;
     --bg-carousel: #222326;
     --bg-border: #000000;
+    --bg-max-view: rgba(55,56,60,0.90);
+    --max-view-buttons:   rgba(255,255,255,0.70);
 
     --primary-color: #FFFFFF;
     --text-color: #FFFFFF;

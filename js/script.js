@@ -58,6 +58,14 @@ searchInput.addEventListener('keyup', (e) => {
     }
 });
 
+let favGifsArray = JSON.parse(localStorage.getItem('favGifs'));
+
+    if(favGifsArray === null) {
+        favGifsArray = [];
+        localStorage.setItem('favGifs', JSON.stringify(favGifsArray));
+    }
+
+
 //contenedor donde van a mostrarse las palabras sugeridas
 let searchSuggestionsCtn = document.getElementById('suggestionsCtn');
 
@@ -173,45 +181,55 @@ function addGIFsToDOM(gif, contenedor) {
 
     let gifCardTemplateClone = gifCardTemplate.cloneNode(true); //clonar template
 
-    //datos del gif
-    let gifTitle = gifCardTemplateClone.children[0].children[0];
-    gifTitle.textContent = gif.title || 'Sin título';
-
-    let gifUserName = gifCardTemplateClone.children[0].children[1];
-    gifUserName.textContent = gif.username || 'Anónimo';
-
     //traer el gif desde la url height. gif es data[x]
-    let trueGif = gifCardTemplateClone.children[1].children[0];
+    let trueGif = gifCardTemplateClone.children[0];
     trueGif.src = gif.images.fixed_height.url; 
 
     //alt del gif
-    let gifAlt = gifCardTemplateClone.children[1].children[0];
+    let gifAlt = gifCardTemplateClone.children[0];
     gifAlt.alt = gif.title; 
+
+    //datos del gif
+    let gifTitle = gifCardTemplateClone.children[1].children[0].children[0];
+    gifTitle.textContent = gif.title || 'Sin título';
+
+    let gifUserName = gifCardTemplateClone.children[1].children[0].children[1];
+    gifUserName.textContent = gif.username || 'Anónimo';
 
     // gifCardTemplateClone.children[0].id = gif.id; no usamos
 
     //funcionalidades botones
     // TO-DO --> eventListeners
-    let gifFavIcon = gifCardTemplateClone.children[2].children[0];
+    let gifFavIcon = gifCardTemplateClone.children[1].children[1].children[0].children[0];
     gifFavIcon.id = gif.id;
-    // gifFavIcon.addEventListener('click', addToFavorites);
+    console.log(gifFavIcon);
 
-    let gifDownloadIcon = gifCardTemplateClone.children[2].children[1];
+    if (contenedor.classList.contains('containerMisGifos')) {  //El primer botón permitirá eliminar un gif de "Mis gifos".
+        gifFavIcon.classList.remove("fa-heart");
+        gifFavIcon.classList.add("fa-trash-alt");
+        // gifFavIcon.addEventListener("click", deleteMyGifo);
+
+    } else { //El primer botón permitirá agregar/borrar favorito.
+        const favorites = JSON.parse(localStorage.getItem("favGifs"));
+        console.log(favorites);
+        if (favorites.includes(gif.id)) {
+            gifFavIcon.classList.remove("far");
+            gifFavIcon.classList.add("fas");
+        }
+        gifFavIcon.addEventListener('click', addToFavorites);
+    }
+
+    let gifDownloadIcon = gifCardTemplateClone.children[1].children[1].children[1];
     // gifDownloadIcon. = ;
-
-    let gifExpandIcon = gifCardTemplateClone.children[2].children[2];
-    // gifExpandIcon. = ;
+    let gifExpandIcon = gifCardTemplateClone.children[1].children[1].children[2];
+    gifExpandIcon.addEventListener('click', () => {
+        fullscreenView();
+        gifExpandIcon.classList.add('hiddenClass');
+    });
+    gifCardTemplateClone.addEventListener('click', fullscreenView);
 
     contenedor.appendChild(gifCardTemplateClone); //se apendea este contenedor al nodo clonado.
 }
-
-
-// function addToFavorites() {
-//     if (localStorage.getItem('favorites') == null) {
-//         localStorage.setItem('favorites', `[${this.id}]`);
-//     }
-//     console.log(localStorage);
-// }
 
 let trendingWordsCtn = document.getElementById('trendingWordsCtn');
 async function getTrendingsWords() {
@@ -282,24 +300,40 @@ carouselWrapper.lastElementChild.addEventListener("mousedown", () => {
     carouselCtn.style.marginLeft =`${carouselScroll}px`;
 });
 
-//fullscreen
-// function displayFullScreen() {
-// 	let gif = this.parentElement; //Si se llegó presionando la imagen (mobile).
-// 	if (!gif.classList.contains("gifContainer")) {
-// 		gif = gif.parentElement.parentElement; //Si se llegó presionando el botón (desktop).
-// 	}
+// fullscreen;
 
-// 	//a. El usuario entró a modo fullscreen.
-// 	if (gif.id !== "on-fullscreen-gif") {
-// 		gif.children[1].children[0].lastElementChild.classList.remove("fa-download");
-// 		gif.children[1].children[0].lastElementChild.classList.add("fa-times");
-// 		gif.setAttribute("id", "on-fullscreen-gif");
-// 		return;
-// 	}
+let gifContainer = document.getElementsByClassName('gifContainer');
+let gifExpandBtn = document.getElementsByClassName('gifExpand');
 
-// 	//b. El usuario quiere salir de modo fullscreen.
-// 	gif.children[1].children[0].lastElementChild.classList.remove("fa-times");
-// 	gif.children[1].children[0].lastElementChild.classList.add("fa-download");
-// 	gif.setAttribute("id", "");
+function fullscreenView(e) {
+    let gif = this;
+    console.log(gif);
+    if (!gif.classList.contains('fullscreenView')) {
+        gif.classList.remove('gifContainer');
+        gif.classList.add('fullscreenView');
+        let iconClose = document.createElement('i');
+        iconClose.classList.add('fas', 'fa-times', 'closeBtn');
+        iconClose.addEventListener('click', (e) => {
+            let gif = e.target.parentElement;
+            gif.classList.remove('fullscreenView');
+            gif.classList.add('gifContainer');
+            iconClose.remove();
+            e.stopPropagation();
+        })
+        gif.appendChild(iconClose);
+        carouselCtn.style.marginLeft = '0';
+    }
+    carouselCtn.style.marginLeft = '1rem';
+}
 
-// }
+//download
+
+async function downloadGif() {
+    const a = document.createElement('a');
+    const response = await fetch(this.parentElement.parentElement.parentElement.children[0].src);
+    const file = await response.blob();
+    a.download = `${this.dataset.title}.gif`;
+    a.href = window.URL.createObjectURL(file);
+    a.dataset.downloadurl = ['application/octet-stream', a.download, a.href].join(':');
+    a.click()
+}

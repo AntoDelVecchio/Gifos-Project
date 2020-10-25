@@ -10,6 +10,8 @@ html {
   --bg: #FFFFFF;
   --bg-border: #572EE5;
   --deselect-icons-color: rgba(87,46,229,0.70);
+  --bg-max-view: rgba(255,255,255,0.90);
+  --max-view-buttons: rgba(87,46,229,0.70);
   --text-color: #000000;
   --icon-hover-color: #FFFFFF;
 }
@@ -19,6 +21,8 @@ html[data-theme='dark'] {
   --bg-menu: #000000;
   --bg-carousel: #222326;
   --bg-border: #000000;
+  --bg-max-view: rgba(55,56,60,0.90);
+  --max-view-buttons:   rgba(255,255,255,0.70);
   --primary-color: #FFFFFF;
   --text-color: #FFFFFF;
   --icon-hover-color: #000000;
@@ -39,7 +43,7 @@ header .menu-icon .nav-icon:before, header .menu-icon .nav-icon:after {
   transition: all .3s ease-out;
 }
 
-main .searchResults .loadMoreBtn button:hover, main .section .loadMoreBtn button:hover, header nav ul li button:hover, main .trendGifos .carouselWrapper .buttonSlider:hover {
+main .searchResults button:hover, main .section button:hover, header nav ul li button:hover, main .trendGifos .carouselWrapper .buttonSlider:hover {
   color: var(--icon-hover-color);
   background-color: var(--primary-color);
 }
@@ -50,7 +54,7 @@ header nav ul li button:active {
   border: 1px solid var(--tertiary-color);
 }
 
-main .searchResults .loadMoreBtn button, main .section .loadMoreBtn button {
+main .searchResults button, main .section button {
   cursor: pointer;
   outline: none;
   border: 1px solid var(--primary-color);
@@ -857,25 +861,25 @@ main .searchResults .searchResultCtn .gifContainer {
   }
 }
 
-main .searchResults .searchResultCtn .gifContainer .loadedGifCtn .loadedGif {
+main .searchResults .searchResultCtn .gifContainer .loadedGif {
   width: 100%;
   height: 10rem;
 }
 
 @media (min-width: 1024px) {
-  main .searchResults .searchResultCtn .gifContainer .loadedGifCtn .loadedGif {
+  main .searchResults .searchResultCtn .gifContainer .loadedGif {
     height: 12rem;
   }
 }
 
 @media (min-width: 760px) and (max-width: 1024px) {
-  main .searchResults .searchResultCtn .gifContainer .loadedGifCtn .loadedGif {
+  main .searchResults .searchResultCtn .gifContainer .loadedGif {
     height: 12rem;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  main .searchResults .searchResultCtn .gifContainer .loadedGifCtn .loadedGif {
+  main .searchResults .searchResultCtn .gifContainer .loadedGif {
     height: 15rem;
   }
 }
@@ -945,7 +949,7 @@ main .searchResults .searchResultCtn .gifContainer .gifInfo span {
 main .searchResults .searchResultCtn .gifContainer .gifBtns {
   display: none;
   right: 1rem;
-  top: 1rem;
+  top: -3rem;
   z-index: 1000;
 }
 
@@ -981,15 +985,6 @@ main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-heart, ma
   main .searchResults .searchResultCtn .gifContainer .filterGif {
     height: 15rem;
   }
-}
-
-main .searchResults .loadMoreBtn {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
 main .trendGifos {
@@ -1319,6 +1314,7 @@ main .section {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding-top: 1rem;
 }
 
 main .section img {
@@ -1442,25 +1438,25 @@ main .section .gifCtn .gifContainer {
   }
 }
 
-main .section .gifCtn .gifContainer .loadedGifCtn .loadedGif {
+main .section .gifCtn .gifContainer .loadedGif {
   width: 100%;
   height: 10rem;
 }
 
 @media (min-width: 1024px) {
-  main .section .gifCtn .gifContainer .loadedGifCtn .loadedGif {
+  main .section .gifCtn .gifContainer .loadedGif {
     height: 12rem;
   }
 }
 
 @media (min-width: 760px) and (max-width: 1024px) {
-  main .section .gifCtn .gifContainer .loadedGifCtn .loadedGif {
+  main .section .gifCtn .gifContainer .loadedGif {
     height: 12rem;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  main .section .gifCtn .gifContainer .loadedGifCtn .loadedGif {
+  main .section .gifCtn .gifContainer .loadedGif {
     height: 15rem;
   }
 }
@@ -1530,7 +1526,7 @@ main .section .gifCtn .gifContainer .gifInfo span {
 main .section .gifCtn .gifContainer .gifBtns {
   display: none;
   right: 1rem;
-  top: 1rem;
+  top: -3rem;
   z-index: 1000;
 }
 
@@ -1566,15 +1562,6 @@ main .section .gifCtn .gifContainer .gifBtns button .fa-heart, main .section .gi
   main .section .gifCtn .gifContainer .filterGif {
     height: 15rem;
   }
-}
-
-main .section .loadMoreBtn {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
 }
 
 main .createGif {
@@ -1620,6 +1607,15 @@ main .createGif {
     left: 20%;
     top: 30%;
   }
+}
+
+@media screen and (min-width: 1024px) and (min-width: 1440px) {
+  main .createGif .lightsCameraAction {
+    left: 15%;
+  }
+}
+
+@media (min-width: 1024px) {
   main .createGif .lightsCameraAction .camImage {
     width: 6rem;
   }
@@ -1652,15 +1648,6 @@ main .createGif {
     border: 1px solid var(--primary-color);
     position: relative;
   }
-}
-
-@media screen and (min-width: 1024px) and (min-width: 1440px) {
-  main .createGif .introCreateGif {
-    width: 50%;
-  }
-}
-
-@media (min-width: 1024px) {
   main .createGif .introCreateGif .firstScreen {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1728,12 +1715,15 @@ main .createGif {
     -webkit-box-direction: normal;
         -ms-flex-flow: row wrap;
             flex-flow: row wrap;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
     width: 100%;
     height: 5rem;
     margin-top: 1rem;
   }
   main .createGif .bottomContainer .numberButtonsCtn {
-    width: 100%;
+    width: 30%;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1769,24 +1759,12 @@ main .createGif {
     color: var(--icon-hover-color);
   }
   main .createGif .bottomContainer .counterCtn {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
-    width: 80%;
-    margin-top: -4rem;
+    display: initial;
+    position: -webkit-sticky;
+    position: sticky;
+    width: 15%;
+    text-align: end;
   }
-}
-
-@media screen and (min-width: 1024px) and (min-width: 1440px) {
-  main .createGif .bottomContainer .counterCtn {
-    width: 75%;
-  }
-}
-
-@media (min-width: 1024px) {
   main .createGif .bottomContainer .counterCtn .counter {
     font-family: 'Montserrat', sans-serif;
     font-weight: bold;
@@ -1797,6 +1775,7 @@ main .createGif {
   }
   main .createGif .bottomContainer .counterCtn .repeatHover:hover {
     border-bottom: 3px solid var(--secondary-color);
+    cursor: pointer;
   }
   main .createGif .bottomLine {
     content: "";
@@ -1808,25 +1787,12 @@ main .createGif {
   }
   main .createGif .bottomImage {
     width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
-    -webkit-transform: translate(-20px, -100px);
-            transform: translate(-20px, -100px);
   }
-}
-
-@media screen and (min-width: 1024px) and (min-width: 1440px) {
-  main .createGif .bottomImage {
-    -webkit-transform: translate(-100px, -100px);
-            transform: translate(-100px, -100px);
+  main .createGif .bottomImage img {
+    position: relative;
+    left: 85%;
+    bottom: 100%;
   }
-}
-
-@media (min-width: 1024px) {
   main .createGif .startBtnContainer {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1894,6 +1860,212 @@ main .loading .loadingText {
   color: #FFFFFF;
   text-align: center;
   margin-top: 1rem;
+}
+
+main .fullscreenView {
+  background-color: var(--bg-max-view);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column nowrap;
+          flex-flow: column nowrap;
+}
+
+@media (min-width: 1024px) {
+  main .fullscreenView {
+    background-color: var(--bg);
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main .fullscreenView {
+    background-color: var(--bg);
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+}
+
+main .fullscreenView .closeBtn {
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (min-width: 760px) and (max-width: 1024px) {
+  main .fullscreenView .closeBtn {
+    right: 4rem;
+    top: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  main .fullscreenView .closeBtn {
+    right: 4rem;
+    top: 2rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main .fullscreenView .closeBtn {
+    top: 4rem;
+    right: 13rem;
+  }
+}
+
+main .fullscreenView .loadedGif {
+  width: 85%;
+  max-width: 695px;
+  max-height: 385px;
+}
+
+@media (min-width: 1024px) {
+  main .fullscreenView .loadedGif {
+    width: 65%;
+    margin: 0 2rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main .fullscreenView .loadedGif {
+    width: 65%;
+    margin: 0 2rem;
+  }
+}
+
+main .fullscreenView .filterGif {
+  width: 85%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-item-align: center;
+      align-self: center;
+  max-width: 695px;
+}
+
+@media (min-width: 1024px) {
+  main .fullscreenView .filterGif {
+    width: 65%;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main .fullscreenView .filterGif {
+    width: 65%;
+  }
+}
+
+main .fullscreenView .filterGif .gifInfo {
+  width: 100%;
+  text-align: left;
+  line-height: 2rem;
+}
+
+main .fullscreenView .filterGif .gifInfo h5 {
+  font-family: 'Roboto', sans-serif;
+  font-size: .7rem;
+  font-weight: lighter;
+  color: var(--text-color);
+  text-transform: capitalize;
+}
+
+@media (min-width: 760px) and (max-width: 1024px) {
+  main .fullscreenView .filterGif .gifInfo h5 {
+    font-size: .9rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  main .fullscreenView .filterGif .gifInfo h5 {
+    font-size: .9rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main .fullscreenView .filterGif .gifInfo h5 {
+    font-size: .9rem;
+  }
+}
+
+main .fullscreenView .filterGif .gifInfo span {
+  font-family: 'Roboto', sans-serif;
+  font-size: .9rem;
+  font-weight: bold;
+  color: var(--text-color);
+  text-transform: capitalize;
+}
+
+@media (min-width: 760px) and (max-width: 1024px) {
+  main .fullscreenView .filterGif .gifInfo span {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  main .fullscreenView .filterGif .gifInfo span {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main .fullscreenView .filterGif .gifInfo span {
+    font-size: 1rem;
+  }
+}
+
+main .fullscreenView .filterGif .gifBtns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  max-width: 150px;
+}
+
+main .fullscreenView .filterGif .gifBtns button {
+  cursor: pointer;
+  border: 1px solid #CED7E1;
+  border-radius: 6px;
+  background: var(--bg);
+  height: 36px;
+  width: 36px;
+  margin: .5rem;
+}
+
+main .fullscreenView .filterGif .gifBtns button .fa-heart, main .fullscreenView .filterGif .gifBtns button .fa-download, main .fullscreenView .filterGif .gifBtns button .fa-trash-alt {
+  color: var(--max-view-buttons);
+  font-size: 1.3rem;
+}
+
+main .fullscreenView .filterGif .gifBtns .gifExpand {
+  display: none;
 }
 
 footer {

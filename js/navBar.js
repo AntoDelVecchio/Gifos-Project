@@ -16,6 +16,8 @@ favoritos.addEventListener('click', () => {
     favoritosSection.classList.remove('hiddenClass');
     introductionSection.classList.add('hiddenClass');
     favoritos.classList.add('activeTab');
+    favsCtn.innerHTML= '';
+    showGifos(favGifsArray, favsCtn);
 
     if(!misGifosSection.classList.contains('hiddenClass')){
 
@@ -33,6 +35,7 @@ favoritos.addEventListener('click', () => {
         resultsSection.classList.add('hiddenClass');
 
     }
+    menuBtn.checked = false;
 });
 
 //seccion mis gifos
@@ -43,6 +46,8 @@ misGifosBtn.addEventListener('click', () => {
     misGifosSection.classList.remove('hiddenClass');
     introductionSection.classList.add('hiddenClass');
     misGifosBtn.classList.add('activeTab');
+    misGifosCtn.innerHTML = '';
+    showGifos(misGifosArray, misGifosCtn);
 
     if(!favoritosSection.classList.contains('hiddenClass')){
 
@@ -60,6 +65,7 @@ misGifosBtn.addEventListener('click', () => {
         resultsSection.classList.add('hiddenClass');
         
     }
+    menuBtn.checked = false;
 });
 
 //seccion para crear gifos
@@ -116,6 +122,7 @@ home.addEventListener('click', () => {
         resultsSection.classList.add('hiddenClass');
         
     }
+    menuBtn.checked = false;
 });
 
 
