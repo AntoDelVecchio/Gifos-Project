@@ -9,13 +9,13 @@ let trendingSection = document.getElementById('trendGifos');
 //Esto lo repito con la seccion mis gifos y tambien con la de crear gifos.
 //esto es muy repetitivo --->>>> mejorar think Anto!
 
-let favoritos = document.getElementById('favoritos');
+let favoritosBtn = document.getElementById('favoritosBtn');
 let favoritosSection = document.getElementById('favsSection');
 
-favoritos.addEventListener('click', () => {
+favoritosBtn.addEventListener('click', () => {
     favoritosSection.classList.remove('hiddenClass');
     introductionSection.classList.add('hiddenClass');
-    favoritos.classList.add('activeTab');
+    favoritosBtn.classList.add('activeTab');
     favsCtn.innerHTML= '';
     showGifos(favGifsArray, favsCtn);
 
@@ -24,9 +24,9 @@ favoritos.addEventListener('click', () => {
         misGifosSection.classList.add('hiddenClass');
         misGifosBtn.classList.remove('activeTab');
 
-    }else if(!creatGifSection.classList.contains('hiddenClass')) {
+    }else if(!createGifSection.classList.contains('hiddenClass')) {
 
-        creatGifSection.classList.add('hiddenClass');
+        createGifSection.classList.add('hiddenClass');
         btnCrearGifo.classList.remove('activeBtn');
         trendingSection.classList.remove('hiddenClass');
 
@@ -52,11 +52,11 @@ misGifosBtn.addEventListener('click', () => {
     if(!favoritosSection.classList.contains('hiddenClass')){
 
         favoritosSection.classList.add('hiddenClass');
-        favoritos.classList.remove('activeTab');
+        favoritosBtn.classList.remove('activeTab');
 
-    }else if(!creatGifSection.classList.contains('hiddenClass')) {
+    }else if(!createGifSection.classList.contains('hiddenClass')) {
 
-        creatGifSection.classList.add('hiddenClass');
+        createGifSection.classList.add('hiddenClass');
         btnCrearGifo.classList.remove('activeBtn');
         trendingSection.classList.remove('hiddenClass');
 
@@ -70,10 +70,10 @@ misGifosBtn.addEventListener('click', () => {
 
 //seccion para crear gifos
 let btnCrearGifo = document.getElementById('btnCrearGifo');
-let creatGifSection = document.getElementById('creatGifSection');
+let createGifSection = document.getElementById('createGifSection');
 
 btnCrearGifo.addEventListener('click', () => {
-    creatGifSection.classList.remove('hiddenClass');
+    createGifSection.classList.remove('hiddenClass');
     btnCrearGifo.classList.add('activeBtn');
     introductionSection.classList.add('hiddenClass');
     trendingSection.classList.add('hiddenClass');
@@ -81,7 +81,7 @@ btnCrearGifo.addEventListener('click', () => {
     if(!favoritosSection.classList.contains('hiddenClass')){
 
         favoritosSection.classList.add('hiddenClass');
-        favoritos.classList.remove('activeTab');
+        favoritosBtn.classList.remove('activeTab');
 
     }else if(!misGifosSection.classList.contains('hiddenClass')){
 
@@ -105,16 +105,16 @@ home.addEventListener('click', () => {
     if(!favoritosSection.classList.contains('hiddenClass')){
 
         favoritosSection.classList.add('hiddenClass');
-        favoritos.classList.remove('activeTab');
+        favoritosBtn.classList.remove('activeTab');
 
     }else if(!misGifosSection.classList.contains('hiddenClass')){
 
         misGifosSection.classList.add('hiddenClass');
         misGifosBtn.classList.remove('activeTab');
 
-    }else if(!creatGifSection.classList.contains('hiddenClass')) {
+    }else if(!createGifSection.classList.contains('hiddenClass')) {
 
-        creatGifSection.classList.add('hiddenClass');
+        createGifSection.classList.add('hiddenClass');
         btnCrearGifo.classList.remove('activeBtn');
 
     }else if(!searchResultsSection.classList.contains('hiddenClass')){

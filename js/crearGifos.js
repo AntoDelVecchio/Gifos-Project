@@ -211,8 +211,8 @@ function uploadComplete() {
 let gifosString = misGifosArray.toString();
 
 let misGifosCtn = document.getElementById('misGifosCtn');
-let emptyMessage = document.getElementById('emptyMisGifosSection');
-let moreBtnMisGifos = document.getElementById('moreBtnMisGifos');
+let emptyMessage = document.getElementById('emptyMessage');
+let moreBtnSection = document.getElementById('moreBtnSection');
 
 async function showGifos(gifosArray, container) {
     try {
@@ -225,23 +225,21 @@ async function showGifos(gifosArray, container) {
             responseParsed.data.forEach((gif) => {
                 addGIFsToDOM(gif, container)
             });
-            moreBtnMisGifos.classList.add('hiddenClass');
         }else if(gifosArray.length > 1){
             let response = await fetch(`https://api.giphy.com/v1/gifs?ids=${gifosString},?&api_key=${apiKey}`);
             let responseParsed = await response.json();
             responseParsed.data.forEach((gif) => {
                 addGIFsToDOM(gif, container)
             });
-            moreBtnMisGifos.classList.add('hiddenClass');
             
             // if(gifosArray.length > 12){ 
-            //     moreBtnMisGifos.classList.remove('hiddenClass');
+            //     moreBtnSection.classList.remove('hiddenClass');
             // }
         }
 
-        if(gifosArray.length !== 0) {
-            emptyMessage.classList.remove('emptySection');
-            emptyMessage.classList.add('hiddenClass');
+        if(gifosArray.length === 0) {
+            emptyMessage.classList.add('emptySection');
+            emptyMessage.classList.remove('hiddenClass');
         }
 
     } catch (error) {

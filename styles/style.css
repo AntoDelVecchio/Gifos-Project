@@ -621,19 +621,19 @@ main .introduction .searchSection .searchBar .suggestionsCtn p {
   cursor: pointer;
 }
 
-main .introduction .trendings {
+main .introduction .trendingWords {
   text-align: center;
   color: var(--primary-color);
   margin: 1.5rem 3rem 2.7rem;
 }
 
 @media (min-width: 1024px) {
-  main .introduction .trendings {
+  main .introduction .trendingWords {
     margin: 4rem 0 5.9rem 0;
   }
 }
 
-main .introduction .trendings h3 {
+main .introduction .trendingWords h3 {
   font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 1rem;
@@ -641,12 +641,12 @@ main .introduction .trendings h3 {
 }
 
 @media (min-width: 1024px) {
-  main .introduction .trendings h3 {
+  main .introduction .trendingWords h3 {
     font-size: 1.2rem;
   }
 }
 
-main .introduction .trendings span {
+main .introduction .trendingWords span {
   font-family: 'Montserrat', sans-serif;
   font-size: 0.9rem;
   line-height: 1.5rem;
@@ -655,7 +655,7 @@ main .introduction .trendings span {
 }
 
 @media (min-width: 1024px) {
-  main .introduction .trendings span {
+  main .introduction .trendingWords span {
     font-size: 1rem;
   }
 }
@@ -709,6 +709,16 @@ main .emptySearch span {
 }
 
 main .searchResults {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin: 1rem;
 }
 
@@ -1648,7 +1658,7 @@ main .createGif {
     border: 1px solid var(--primary-color);
     position: relative;
   }
-  main .createGif .introCreateGif .firstScreen {
+  main .createGif .introCreateGif .screen {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -1661,29 +1671,29 @@ main .createGif {
         -ms-flex-pack: center;
             justify-content: center;
   }
-  main .createGif .introCreateGif .firstScreen .corner-right, main .createGif .introCreateGif .firstScreen .corner-left {
+  main .createGif .introCreateGif .screen .corner-right, main .createGif .introCreateGif .screen .corner-left {
     height: 25px;
     width: 27px;
     display: inline-block;
     position: absolute;
   }
-  main .createGif .introCreateGif .firstScreen .corner-right {
+  main .createGif .introCreateGif .screen .corner-right {
     border-right: 1px solid var(--secondary-color);
     right: 1.5rem;
   }
-  main .createGif .introCreateGif .firstScreen .corner-left {
+  main .createGif .introCreateGif .screen .corner-left {
     border-left: 1px solid var(--secondary-color);
     left: 1.5rem;
   }
-  main .createGif .introCreateGif .firstScreen .corner-top {
+  main .createGif .introCreateGif .screen .corner-top {
     border-top: 1px solid var(--secondary-color);
     top: 1.5rem;
   }
-  main .createGif .introCreateGif .firstScreen .corner-bottom {
+  main .createGif .introCreateGif .screen .corner-bottom {
     border-bottom: 1px solid var(--secondary-color);
     bottom: 1.5rem;
   }
-  main .createGif .introCreateGif .firstScreen .video {
+  main .createGif .introCreateGif .screen .video {
     width: 75%;
     height: 75%;
     display: -webkit-box;
@@ -1692,7 +1702,7 @@ main .createGif {
     -ms-flex-item-align: center;
         align-self: center;
   }
-  main .createGif .introCreateGif .firstScreen h4 {
+  main .createGif .introCreateGif .screen h4 {
     font-family: 'Montserrat', sans-serif;
     font-size: bold;
     font-size: 25px;
@@ -1700,7 +1710,7 @@ main .createGif {
     text-align: center;
     line-height: 35px;
   }
-  main .createGif .introCreateGif .firstScreen p {
+  main .createGif .introCreateGif .screen p {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
     color: var(--text-color);
@@ -1780,19 +1790,34 @@ main .createGif {
   main .createGif .bottomLine {
     content: "";
     display: block;
-    margin: 0 auto;
-    width: 65%;
+    margin: 1rem 10rem;
+    width: 100%;
     border-bottom: 6px solid var(--primary-color);
     border-radius: 25px;
   }
-  main .createGif .bottomImage {
-    width: 100%;
+}
+
+@media screen and (min-width: 1024px) and (min-width: 1440px) {
+  main .createGif .bottomLine {
+    margin: 1rem 17rem;
   }
-  main .createGif .bottomImage img {
+}
+
+@media (min-width: 1024px) {
+  main .createGif .pelicula {
     position: relative;
-    left: 85%;
-    bottom: 100%;
+    left: 42%;
+    bottom: 7rem;
   }
+}
+
+@media screen and (min-width: 1024px) and (min-width: 1440px) {
+  main .createGif .pelicula {
+    left: 39%;
+  }
+}
+
+@media (min-width: 1024px) {
   main .createGif .startBtnContainer {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -1800,6 +1825,10 @@ main .createGif {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 100%;
   }
   main .createGif .startBtnContainer button {
     cursor: pointer;
@@ -1814,8 +1843,7 @@ main .createGif {
     font-weight: bold;
     height: 3rem;
     width: 7.9rem;
-    margin-bottom: 2rem;
-    margin-top: -2rem;
+    margin-top: -5rem;
   }
   main .createGif .startBtnContainer button:hover {
     color: var(--icon-hover-color);
