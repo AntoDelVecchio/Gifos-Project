@@ -232,14 +232,16 @@ async function showGifos(gifosArray, container) {
                 addGIFsToDOM(gif, container)
             });
             
-            // if(gifosArray.length > 12){ 
-            //     moreBtnSection.classList.remove('hiddenClass');
-            // }
+            if(gifosArray.length <= 12){ 
+                moreBtnSection.classList.add('hiddenClass');
+            }else{
+                moreBtnSection.classList.remove('hiddenClass');
+            }
         }
 
         if(gifosArray.length === 0) {
-            emptyMessage.classList.add('emptySection');
             emptyMessage.classList.remove('hiddenClass');
+            emptyMessage.classList.add('emptySection');
         }
 
     } catch (error) {
