@@ -39,7 +39,23 @@
     }
 }
 
-
+%buttonOnfilter{
+    cursor: pointer;
+    border: 1px solid #CED7E1; //ver este color
+    border-radius: 6px;
+    background: #FFFFFF;
+    opacity: 0.9;
+    height: 32px;
+    width: 32px;
+    .fa-heart, .fa-download, .fa-expand-alt, .fa-trash-alt{
+        color: var(--deselect-icons-color);
+        font-size: 1.3rem;
+    }
+    &:hover{
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+        background: #f1e7e7;
+    }
+}
   
 @mixin word-bundle($font-size, $color, $font-weight, $line-height) {
     font-size: $font-size;

@@ -183,7 +183,10 @@ async function fifthStage() {
 	counter.classList.remove('counter');
 	startBtn.classList.add('hiddenClass');
 	filmStage2.classList.remove('isCurrent');
-	filmStage3.classList.add('isCurrent');
+    filmStage3.classList.add('isCurrent');
+    
+    let downloadMiGifo = document.getElementById('downloadMiGifo');    
+    downloadMiGifo.addEventListener('click', downloadGif);
 }
 
 function onStop() {
@@ -192,10 +195,17 @@ function onStop() {
     console.log('yuuupi!!');
 }
 
+
+let botoneraSuccessfulUpload = document.getElementById('botoneraSuccessfulUpload');
+botoneraSuccessfulUpload.classList.add('hiddenClass');
+
 function uploadComplete() {
     let loaderImage = document.getElementById('loaderImage');
     let loaderText = document.getElementById('loaderText');
-
+    
+    botoneraSuccessfulUpload.classList.remove('hiddenClass');
+    botoneraSuccessfulUpload.classList.add('successfulUploadBtns');
+    
     if (loaderImage.src.match("images/loader.svg")) {
 
         loaderImage.src = "images/check.svg";
@@ -203,7 +213,8 @@ function uploadComplete() {
         return;
     }
 
-    loaderText.innerHTML = 'GIFO subido con éxito'; 
+    loaderText.innerHTML = 'GIFO subido con éxito';
+
 }
 
 
@@ -222,9 +233,9 @@ async function showGifos(gifosArray, container) {
         if(gifosArray.length == 1){
             let response = await fetch(`https://api.giphy.com/v1/gifs/${gifosString}?&api_key=${apiKey}`);
             let responseParsed = await response.json();
-            responseParsed.data.forEach((gif) => {
-                addGIFsToDOM(gif, container)
-            });
+            let gif = responseParsed.data;
+            addGIFsToDOM(gif, container);
+
         }else if(gifosArray.length > 1){
             let response = await fetch(`https://api.giphy.com/v1/gifs?ids=${gifosString},?&api_key=${apiKey}`);
             let responseParsed = await response.json();
@@ -239,7 +250,7 @@ async function showGifos(gifosArray, container) {
             }
         }
 
-        if(gifosArray.length === 0) {
+        if(gifosArray.length === 0 || gifosArray == null) {
             emptyMessage.classList.remove('hiddenClass');
             emptyMessage.classList.add('emptySection');
         }
@@ -249,13 +260,9 @@ async function showGifos(gifosArray, container) {
     }
 }
 
-// showGifos(misGifosArray, misGifosCtn);
-
 //favorites
 
 let favsCtn = document.getElementById('favsCtn');
-
-console.log(favGifsArray);
 
 function addToFavorites() {
 
@@ -264,8 +271,37 @@ function addToFavorites() {
 
 }
 
-// showGifos(favGifsArray, favsCtn);
-
 function deleteMyGifo() {
+    misGifosArray = misGifosArray.filter((gifo) => gifo != this.id);
+	localStorage.setItem("misGifos", JSON.stringify(misGifosArray));
+    let gifCard = this.parentElement.parentElement.parentElement.parentElement;
+    console.log(gifCard);
+	removeGifCardFromDOM(gifCard);
+}
 
+function removeGifCardFromDOM(gifCard) {
+    let ctn = gifCard.parentElement.parentElement;
+    console.log(ctn);
+    console.log(gifCard);
+	gifCard.remove();
+	if (ctn.children.length === 0) {
+		ctn.parentElement.classList.add("hidden");
+        ctn.parentElement.nextElementSibling.classList.add("hidden");
+        ctn.parentElement.children[4].classList.remove('hiddenClass');
+	}
+}
+
+let gifoId = misGifosArray[misGifosArray.length-1];
+
+let gifShare = document.getElementById('gifShare');
+gifShare.addEventListener('click', copyURLToClipboard);
+
+function copyURLToClipboard() { //Copia al cortapapeles el link del gif en Giphy.
+    var input = document.createElement('input');
+    document.body.appendChild(input)
+    input.value = `https://giphy.com/gifs/${gifoId}`;
+    input.select();
+    document.execCommand("copy");
+    input.remove();
+    alert('Link copiado');
 }

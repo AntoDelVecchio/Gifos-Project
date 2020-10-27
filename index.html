@@ -92,26 +92,26 @@
         <section id="favsSection" class="section hiddenClass">
             <img src="images/iconFavoritos.svg" alt="favIcon">
             <h2>Favoritos</h2>
-            <div id="emptyMessage" class="hiddenClass">
-                <img src="images/iconFavEmpty.svg" alt="Guarda tu primer gifo">
-                <span>"¡Guarda tu primer GIFO en Favoritos <br> para que se muestre aquí!"</span>
-            </div>
             <div id="favsCtn" class="gifCtn">
                 <!-- gif card template -->
             </div>
             <button id="moreBtnSection" class="hiddenClass">Ver más</button>
+            <div id="emptyMessage" class="hiddenClass">
+                <img src="images/iconFavEmpty.svg" alt="Guarda tu primer gifo">
+                <span>"¡Guarda tu primer GIFO en Favoritos <br> para que se muestre aquí!"</span>
+            </div>
         </section>
         <section id="misGifosSection" class="section hiddenClass">
             <img src="images/iconMisGifos.svg" alt="mis gifos icon">
             <h2>Mis GIFOS</h2>
-            <div id="emptyMessage" class="hiddenClass">
-                <img src="images/iconMisGifosEmpty.svg" alt="animate a crear">
-                <span>¡Anímate a crear tu primer GIFO!</span>
-            </div>
             <div id="misGifosCtn" class="gifCtn containerMisGifos">
                 <!-- gif card template -->
             </div>
             <button id="moreBtnSection" class="hiddenClass">Ver más</button>
+            <div id="emptyMessage" class="hiddenClass">
+                <img src="images/iconMisGifosEmpty.svg" alt="animate a crear">
+                <span>¡Anímate a crear tu primer GIFO!</span>
+            </div>
         </section>
         <section id="createGifSection" class="createGif hiddenClass">
             <div class="lightsCameraAction">
@@ -125,8 +125,16 @@
                     <div id="overlay" class="hiddenClass">
                         <img id="loaderImage" src="images/loader.svg" alt="loader">
                         <span id="loaderText" class="loadingText">Estamos subiendo tu GIFO</span>
+                        <div id="botoneraSuccessfulUpload" class="">
+                            <button id="downloadMiGifo" class="gifDownload">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            <button class="gifShare" id="gifShare">
+                                <i class="fas fa-link"></i>
+                            </button>
+                        </div>
                     </div>
-                    <video id="gif-captor" class="hiddenClass" src="" controls autoplay></video>
+                    <video id="gif-captor" class="hiddenClass" src="" autoplay></video>
                     <span class="corner-left corner-bottom"></span>
                     <span class="corner-right corner-bottom"></span>
                     <h4 id="titleCreateGif">Aquí podrás <br> crear tus propios GIFOS</h4>

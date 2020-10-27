@@ -136,8 +136,6 @@ async function makeSearch(search) {
         let response = await fetch(`https://api.giphy.com/v1/gifs/search?q=${search}&api_key=${apiKey}&limit=${12}&offset=${offset}`);
 
         let responseParsed = await response.json();
-        console.log(responseParsed);
-        // console.log(responseParsed.data[0].id);
 
         if(cantidadClicks === 0) {
             gifFoundContainer.textContent = '';
@@ -196,22 +194,18 @@ function addGIFsToDOM(gif, contenedor) {
     let gifUserName = gifCardTemplateClone.children[1].children[0].children[1];
     gifUserName.textContent = gif.username || 'Anónimo';
 
-    // gifCardTemplateClone.children[0].id = gif.id; no usamos
-
     //funcionalidades botones
     // TO-DO --> eventListeners
     let gifFavIcon = gifCardTemplateClone.children[1].children[1].children[0].children[0];
     gifFavIcon.id = gif.id;
-    console.log(gifFavIcon);
 
     if (contenedor.classList.contains('containerMisGifos')) {  //El primer botón permitirá eliminar un gif de "Mis gifos".
         gifFavIcon.classList.remove("fa-heart");
         gifFavIcon.classList.add("fa-trash-alt");
-        // gifFavIcon.addEventListener("click", deleteMyGifo);
+        gifFavIcon.addEventListener("click", deleteMyGifo);
 
     } else { //El primer botón permitirá agregar/borrar favorito.
         const favorites = JSON.parse(localStorage.getItem("favGifs"));
-        console.log(favorites);
         if (favorites.includes(gif.id)) {
             gifFavIcon.classList.remove("far");
             gifFavIcon.classList.add("fas");
@@ -220,13 +214,11 @@ function addGIFsToDOM(gif, contenedor) {
     }
 
     let gifDownloadIcon = gifCardTemplateClone.children[1].children[1].children[1];
-    // gifDownloadIcon. = ;
+    gifDownloadIcon.addEventListener('click', downloadGif);
+
     let gifExpandIcon = gifCardTemplateClone.children[1].children[1].children[2];
-    gifExpandIcon.addEventListener('click', () => {
-        fullscreenView();
-        gifExpandIcon.classList.add('hiddenClass');
-    });
-    gifCardTemplateClone.addEventListener('click', fullscreenView);
+    gifExpandIcon.addEventListener('click', fullscreenView);
+    trueGif.addEventListener('click', fullscreenView);
 
     contenedor.appendChild(gifCardTemplateClone); //se apendea este contenedor al nodo clonado.
 }
@@ -272,7 +264,6 @@ async function showTrendingGifs() {
     try {
         let responseGif = await fetch(`https://api.giphy.com/v1/gifs/trending?api_key=${apiKey}&limit=10`);
         responseGif = await responseGif.json();
-        // console.log(responseGif);
 
         responseGif.data.forEach(gif => {
             addGIFsToDOM(gif, carouselCtn)
@@ -306,8 +297,10 @@ let gifContainer = document.getElementsByClassName('gifContainer');
 let gifExpandBtn = document.getElementsByClassName('gifExpand');
 
 function fullscreenView(e) {
-    let gif = this;
-    console.log(gif);
+    let gif = this.parentElement;
+    if(gif.classList.contains('gifBtns')){
+        gif = gif.parentElement.parentElement;
+    }
     if (!gif.classList.contains('fullscreenView')) {
         gif.classList.remove('gifContainer');
         gif.classList.add('fullscreenView');
@@ -325,6 +318,7 @@ function fullscreenView(e) {
     }
     carouselCtn.style.marginLeft = '1rem';
 }
+
 
 //download
 
