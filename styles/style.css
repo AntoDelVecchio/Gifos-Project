@@ -71,7 +71,7 @@ main .searchResults button, main .section button {
   margin-bottom: 4rem;
 }
 
-main .searchResults .searchResultCtn .gifContainer .gifBtns button, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button, main .section .gifCtn .gifContainer .gifBtns button {
+main .searchResults .searchResultCtn .gifContainer .gifBtns button, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button, main .section .gifCtn .gifContainer .gifBtns button, main .loading .successfulUploadBtns button {
   cursor: pointer;
   border: 1px solid #CED7E1;
   border-radius: 6px;
@@ -81,12 +81,12 @@ main .searchResults .searchResultCtn .gifContainer .gifBtns button, main .trendG
   width: 32px;
 }
 
-main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-heart, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button .fa-heart, main .section .gifCtn .gifContainer .gifBtns button .fa-heart, main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-download, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button .fa-download, main .section .gifCtn .gifContainer .gifBtns button .fa-download, main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-expand-alt, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button .fa-expand-alt, main .section .gifCtn .gifContainer .gifBtns button .fa-expand-alt, main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-trash-alt, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button .fa-trash-alt, main .section .gifCtn .gifContainer .gifBtns button .fa-trash-alt {
+main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-heart, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button .fa-heart, main .section .gifCtn .gifContainer .gifBtns button .fa-heart, main .loading .successfulUploadBtns button .fa-heart, main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-download, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button .fa-download, main .section .gifCtn .gifContainer .gifBtns button .fa-download, main .loading .successfulUploadBtns button .fa-download, main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-expand-alt, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button .fa-expand-alt, main .section .gifCtn .gifContainer .gifBtns button .fa-expand-alt, main .loading .successfulUploadBtns button .fa-expand-alt, main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-trash-alt, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button .fa-trash-alt, main .section .gifCtn .gifContainer .gifBtns button .fa-trash-alt, main .loading .successfulUploadBtns button .fa-trash-alt, main .searchResults .searchResultCtn .gifContainer .gifBtns button .fa-link, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button .fa-link, main .section .gifCtn .gifContainer .gifBtns button .fa-link, main .loading .successfulUploadBtns button .fa-link {
   color: var(--deselect-icons-color);
   font-size: 1.3rem;
 }
 
-main .searchResults .searchResultCtn .gifContainer .gifBtns button:hover, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button:hover, main .section .gifCtn .gifContainer .gifBtns button:hover {
+main .searchResults .searchResultCtn .gifContainer .gifBtns button:hover, main .trendGifos .carouselWrapper .carouselCtn .carousel .gifContainer .gifBtns button:hover, main .section .gifCtn .gifContainer .gifBtns button:hover, main .loading .successfulUploadBtns button:hover {
   -webkit-box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
           box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
   background: #f1e7e7;
@@ -1314,6 +1314,7 @@ main .section {
       -ms-flex-align: center;
           align-items: center;
   padding-top: 1rem;
+  min-height: 30vh;
 }
 
 main .section img {
@@ -1876,25 +1877,7 @@ main .loading .successfulUploadBtns {
 }
 
 main .loading .successfulUploadBtns button {
-  cursor: pointer;
-  border: 1px solid #CED7E1;
-  border-radius: 6px;
-  background: #FFFFFF;
-  opacity: 0.9;
-  height: 32px;
-  width: 32px;
   margin: 0 .5rem;
-}
-
-main .loading .successfulUploadBtns button .fa-download, main .loading .successfulUploadBtns button .fa-link {
-  color: var(--deselect-icons-color);
-  font-size: 1.3rem;
-}
-
-main .loading .successfulUploadBtns button:hover {
-  -webkit-box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-          box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-  background: #f1e7e7;
 }
 
 main .fullscreenView {

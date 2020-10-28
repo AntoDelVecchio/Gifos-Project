@@ -513,21 +513,6 @@ main {
                     z-index: 1000;
                     button{
                         @extend %buttonOnfilter;
-                        // cursor: pointer;
-                        // border: 1px solid #CED7E1; //ver este color
-                        // border-radius: 6px;
-                        // background: #FFFFFF;
-                        // opacity: 0.9;
-                        // height: 32px;
-                        // width: 32px;
-                        // .fa-heart, .fa-download, .fa-expand-alt{
-                        //     color: var(--deselect-icons-color);
-                        //     font-size: 1.3rem;
-                        // }
-                        // &:hover{
-                        //     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-                        //     background: #f1e7e7;
-                        // }
                     }
                 }
                 .filterGif {
@@ -697,21 +682,6 @@ main {
                             z-index: 1000;
                             button{
                                 @extend %buttonOnfilter;
-                                // cursor: pointer;
-                                // border: 1px solid #CED7E1; //ver este color
-                                // border-radius: 6px;
-                                // background: #FFFFFF;
-                                // opacity: 0.9;
-                                // height: 32px;
-                                // width: 32px;
-                                // .fa-heart, .fa-download, .fa-expand-alt{
-                                //     color: var(--deselect-icons-color);
-                                //     font-size: 1.3rem;
-                                // }
-                                // &:hover{
-                                //     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-                                //     background: #f1e7e7;
-                                // }
                             }
                         }
                         .filterGif {
@@ -738,6 +708,7 @@ main {
         justify-content: center;
         align-items: center;
         padding-top: 1rem;
+        min-height: 30vh;
         img{
             margin-bottom: .5rem;
         }
@@ -839,21 +810,6 @@ main {
                     z-index: 1000;
                     button{
                         @extend %buttonOnfilter;
-                        // cursor: pointer;
-                        // border: 1px solid #CED7E1; //ver este color
-                        // border-radius: 6px;
-                        // background: #FFFFFF;
-                        // opacity: 0.9;
-                        // height: 32px;
-                        // width: 32px;
-                        // .fa-heart, .fa-download, .fa-expand-alt, .fa-trash-alt{
-                        //     color: var(--deselect-icons-color);
-                        //     font-size: 1.3rem;
-                        // }
-                        // &:hover{
-                        //     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-                        //     background: #f1e7e7;
-                        // }
                     }
                 }
                 .filterGif {
@@ -1102,22 +1058,8 @@ main {
             justify-content: flex-end;
             bottom: 11rem;
             button{
-                cursor: pointer;
-                border: 1px solid #CED7E1; //ver este color
-                border-radius: 6px;
-                background: #FFFFFF;
-                opacity: 0.9;
-                height: 32px;
-                width: 32px;
+                @extend %buttonOnfilter;
                 margin: 0 .5rem;
-                .fa-download, .fa-link{
-                    color: var(--deselect-icons-color);
-                    font-size: 1.3rem;
-                }
-                &:hover{
-                    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
-                    background: #f1e7e7;
-                }
             }
         }
     }
@@ -1204,7 +1146,7 @@ main {
                     max-width: 150px;
                     button{
                         cursor: pointer;
-                        border: 1px solid #CED7E1; //ver este color
+                        border: 1px solid #CED7E1;
                         border-radius: 6px;
                         background: var(--bg);
                         height: 36px;
@@ -1215,13 +1157,6 @@ main {
                             font-size: 1.3rem;
                         }
                     }
-                    // .gifFav{
-                    //     border: none;
-                    //     background: none;
-                    //     .fa-heart{
-                    //         color: var(--primary-color);
-                    //     }
-                    // }
                     .gifExpand{
                         display: none;
                     }
@@ -1243,7 +1178,7 @@ footer{
         flex-flow: row wrap;
         align-items: center;
     }
-    .additionalInfo{ //cambiar nombre de esta clase
+    .additionalInfo{
         width: 100%;
         @include respond-to(desktop-screen){
             display: flex;
@@ -1285,7 +1220,7 @@ footer{
                     margin: 0;
                 }
                 i{
-                    color: #CDD6E0; //ver este color
+                    color: #CDD6E0;
                     margin: .5rem;
                     &:hover{
                         color: var(--primary-color);

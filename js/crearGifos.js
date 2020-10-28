@@ -1,5 +1,4 @@
 
-
 let [filmStage1, filmStage2, filmStage3] = Array.from(document.querySelectorAll('span.number')); //botones 1, 2, 3 -> para traerlos todos juntos.
 let startBtn = document.getElementById('startBtn');
 let titleCreateGif = document.getElementById('titleCreateGif');
@@ -9,6 +8,7 @@ let counter = document.getElementById('counter');
 let reRecordBtn = counter.children[0];
 let createOverlay = document.querySelector('#overlay');
 let misGifosArray = JSON.parse(localStorage.getItem('misGifos'));
+let favsCtn = document.getElementById('favsCtn');
 
 if(misGifosArray === null) {
     misGifosArray = [];
@@ -222,13 +222,26 @@ function uploadComplete() {
 let gifosString = misGifosArray.toString();
 
 let misGifosCtn = document.getElementById('misGifosCtn');
-let emptyMessage = document.getElementById('emptyMessage');
-let moreBtnSection = document.getElementById('moreBtnSection');
+let emptyMessageMisGifos = document.getElementById('emptyMessageMisGifos');
+let emptyMessageFav = document.getElementById('emptyMessageFav');
 
-async function showGifos(gifosArray, container) {
+let moreFavBtn = document.getElementById("moreFavBtn");
+moreFavBtn.addEventListener("click", () => {
+    showGifos(favGifsArray, favsCtn, moreFavBtn)
+});
+
+let moreMisGifosBtn = document.getElementById('moreMisGifosBtn');
+moreMisGifosBtn.addEventListener("click", () => {
+    showGifos(misGifosArray, misGifosCtn, moreMisGifosBtn)
+});
+
+// let button = document.getElementById
+let contadorSeeMore = 0;
+
+async function showGifos(gifosArray, container, button) {
     try {
-
-        let gifosString = gifosArray.toString();
+        let smallArray = gifosArray.slice(12*contadorSeeMore, 12*contadorSeeMore+12);
+        let gifosString = smallArray.toString();
 
         if(gifosArray.length == 1){
             let response = await fetch(`https://api.giphy.com/v1/gifs/${gifosString}?&api_key=${apiKey}`);
@@ -242,19 +255,31 @@ async function showGifos(gifosArray, container) {
             responseParsed.data.forEach((gif) => {
                 addGIFsToDOM(gif, container)
             });
-            
-            if(gifosArray.length <= 12){ 
-                moreBtnSection.classList.add('hiddenClass');
+        }
+
+        contadorSeeMore++
+
+        if(gifosArray.length === 0 || gifosArray === null) {
+            emptyMessageMisGifos.classList.remove('hiddenClass');
+            emptyMessageMisGifos.classList.add('emptySection');
+            emptyMessageFav.classList.remove('hiddenClass');
+            emptyMessageFav.classList.add('emptySection');
+
+        }else{
+            emptyMessageMisGifos.classList.add('hiddenClass');
+            emptyMessageMisGifos.classList.remove('emptySection');
+            emptyMessageFav.classList.add('hiddenClass');
+            emptyMessageFav.classList.remove('emptySection');
+        }
+
+        if(button){  
+            if(smallArray.length < 12){ 
+                button.classList.add('hiddenClass');
             }else{
-                moreBtnSection.classList.remove('hiddenClass');
+                button.classList.remove('hiddenClass');
             }
         }
-
-        if(gifosArray.length === 0 || gifosArray == null) {
-            emptyMessage.classList.remove('hiddenClass');
-            emptyMessage.classList.add('emptySection');
-        }
-
+       
     } catch (error) {
         console.log(error);
     }
@@ -262,20 +287,24 @@ async function showGifos(gifosArray, container) {
 
 //favorites
 
-let favsCtn = document.getElementById('favsCtn');
 
 function addToFavorites() {
-
     favGifsArray.push(this.id);
     localStorage.setItem('favGifs', JSON.stringify(favGifsArray));
-
 }
 
 function deleteMyGifo() {
     misGifosArray = misGifosArray.filter((gifo) => gifo != this.id);
 	localStorage.setItem("misGifos", JSON.stringify(misGifosArray));
     let gifCard = this.parentElement.parentElement.parentElement.parentElement;
-    console.log(gifCard);
+	removeGifCardFromDOM(gifCard);
+}
+
+//sacar gif de favorites
+function removeFavorite() {
+    favGifsArray = favGifsArray.filter((gifo) => gifo != this.id);
+	localStorage.setItem("favGifs", JSON.stringify(favGifsArray));
+    let gifCard = this.parentElement.parentElement.parentElement.parentElement;
 	removeGifCardFromDOM(gifCard);
 }
 

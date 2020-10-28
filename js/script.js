@@ -200,17 +200,23 @@ function addGIFsToDOM(gif, contenedor) {
     gifFavIcon.id = gif.id;
 
     if (contenedor.classList.contains('containerMisGifos')) {  //El primer botón permitirá eliminar un gif de "Mis gifos".
-        gifFavIcon.classList.remove("fa-heart");
-        gifFavIcon.classList.add("fa-trash-alt");
+        gifFavIcon.classList.remove('fa-heart');
+        gifFavIcon.classList.add('fa-trash-alt');
         gifFavIcon.addEventListener("click", deleteMyGifo);
 
     } else { //El primer botón permitirá agregar/borrar favorito.
-        const favorites = JSON.parse(localStorage.getItem("favGifs"));
+        const favorites = JSON.parse(localStorage.getItem('favGifs'));
         if (favorites.includes(gif.id)) {
-            gifFavIcon.classList.remove("far");
-            gifFavIcon.classList.add("fas");
+            gifFavIcon.classList.remove('far');
+            gifFavIcon.classList.add('fas');
         }
-        gifFavIcon.addEventListener('click', addToFavorites);
+        if(gifFavIcon.classList.contains('fas')){
+
+            gifFavIcon.addEventListener('click', removeFavorite);
+
+        }else{
+            gifFavIcon.addEventListener('click', addToFavorites);
+        }
     }
 
     let gifDownloadIcon = gifCardTemplateClone.children[1].children[1].children[1];

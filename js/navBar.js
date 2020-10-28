@@ -17,7 +17,8 @@ favoritosBtn.addEventListener('click', () => {
     introductionSection.classList.add('hiddenClass');
     favoritosBtn.classList.add('activeTab');
     favsCtn.innerHTML= '';
-    showGifos(favGifsArray, favsCtn);
+    contadorSeeMore = 0;
+    showGifos(favGifsArray, favsCtn, moreFavBtn);
 
     if(!misGifosSection.classList.contains('hiddenClass')){
 
@@ -47,7 +48,8 @@ misGifosBtn.addEventListener('click', () => {
     introductionSection.classList.add('hiddenClass');
     misGifosBtn.classList.add('activeTab');
     misGifosCtn.innerHTML = '';
-    showGifos(misGifosArray, misGifosCtn);
+    contadorSeeMore = 0;
+    showGifos(misGifosArray, misGifosCtn, moreMisGifosBtn);
 
     if(!favoritosSection.classList.contains('hiddenClass')){
 
