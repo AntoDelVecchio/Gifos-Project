@@ -105,8 +105,8 @@ html.transition *:before,
 html.transition *:after {
   -webkit-transition: all 550ms;
   transition: all 550ms;
-  -webkit-transition-delay: 0;
-          transition-delay: 0;
+  -webkit-transition-delay: 0s;
+          transition-delay: 0s;
 }
 
 @-webkit-keyframes blinking {
@@ -587,7 +587,6 @@ main .introduction .searchSection .searchBar .inputBarCtn .searchInput:focus {
 main .introduction .searchSection .searchBar .inputBarCtn .lensIcon {
   cursor: pointer;
   float: right;
-  margin-right: -2rem;
   color: var(--primary-color);
   font-size: 1.5rem;
 }
@@ -679,54 +678,6 @@ main .introduction .trendingWords span {
   main .introduction .trendingWords span {
     font-size: 1rem;
   }
-}
-
-main .emptySearch {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column wrap;
-          flex-flow: column wrap;
-  margin: 2rem 2rem 4rem;
-}
-
-@media (min-width: 1024px) {
-  main .emptySearch {
-    margin-bottom: 8rem;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  main .emptySearch {
-    margin-bottom: 8rem;
-  }
-}
-
-main .emptySearch img {
-  margin: 2rem;
-}
-
-@media (min-width: 1024px) {
-  main .emptySearch img {
-    margin: 4rem 2rem 1.8rem 2rem;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  main .emptySearch img {
-    margin: 4rem 2rem 1.8rem 2rem;
-  }
-}
-
-main .emptySearch span {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
-  font-size: 1.4rem;
-  color: var(--secondary-color);
-  line-height: 25px;
-  text-align: center;
 }
 
 main .searchResults {
@@ -1330,54 +1281,6 @@ main .section h2 {
   margin-bottom: 2.5rem;
 }
 
-main .section .emptySection {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-flow: column wrap;
-          flex-flow: column wrap;
-  margin: 2rem 2rem 4rem;
-}
-
-@media (min-width: 1024px) {
-  main .section .emptySection {
-    margin-bottom: 8rem;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  main .section .emptySection {
-    margin-bottom: 8rem;
-  }
-}
-
-main .section .emptySection img {
-  margin: 2rem;
-}
-
-@media (min-width: 1024px) {
-  main .section .emptySection img {
-    margin: 4rem 2rem 1.8rem 2rem;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  main .section .emptySection img {
-    margin: 4rem 2rem 1.8rem 2rem;
-  }
-}
-
-main .section .emptySection span {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: bold;
-  font-size: 1.4rem;
-  color: var(--secondary-color);
-  line-height: 25px;
-  text-align: center;
-}
-
 main .section .gifCtn {
   width: 100%;
   display: -webkit-box;
@@ -1678,7 +1581,7 @@ main .createGif {
   }
   main .createGif .introCreateGif .screen h4 {
     font-family: 'Montserrat', sans-serif;
-    font-size: bold;
+    font-weight: bold;
     font-size: 25px;
     color: var(--primary-color);
     text-align: center;
@@ -1827,6 +1730,54 @@ main .createGif {
 
 main .hiddenClass {
   display: none;
+}
+
+main .emptySection {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
+  margin: 2rem 2rem 4rem;
+}
+
+@media (min-width: 1024px) {
+  main .emptySection {
+    margin-bottom: 8rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main .emptySection {
+    margin-bottom: 8rem;
+  }
+}
+
+main .emptySection img {
+  margin: 2rem;
+}
+
+@media (min-width: 1024px) {
+  main .emptySection img {
+    margin: 4rem 2rem 1.8rem 2rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  main .emptySection img {
+    margin: 4rem 2rem 1.8rem 2rem;
+  }
+}
+
+main .emptySection span {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: var(--secondary-color);
+  line-height: 25px;
+  text-align: center;
 }
 
 main .loading {
@@ -2122,10 +2073,6 @@ footer .additionalInfo {
         -ms-flex-direction: row;
             flex-direction: row;
   }
-}
-
-footer .additionalInfo h4 {
-  display: none;
 }
 
 footer .additionalInfo .socialNetworks {

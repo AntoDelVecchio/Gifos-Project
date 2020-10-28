@@ -14,7 +14,7 @@ html.transition *,
 html.transition *:before,
 html.transition *:after {
   transition: all 550ms;
-  transition-delay: 0;
+  transition-delay: 0s;
 }
 //transición luz verde camára
 @keyframes blinking {
@@ -307,7 +307,6 @@ main {
                     .lensIcon{
                         cursor: pointer;
                         float: right;
-                        margin-right: -2rem;
                         color: var(--primary-color);
                         font-size: 1.5rem;
                     }
@@ -384,28 +383,6 @@ main {
     }
 
  //sección de resultados de búsqueda
-    .emptySearch{
-        display: flex;
-        flex-flow: column wrap;
-        margin: 2rem 2rem 4rem;
-        @include respond-to(desktop-screen, xlg-screen){
-            margin-bottom: 8rem;
-        }
-        img{
-            margin: 2rem;
-            @include respond-to(desktop-screen, xlg-screen){
-                margin: 4rem 2rem 1.8rem 2rem;
-            }           
-        }
-        span{
-            font-family: 'Montserrat', sans-serif;
-            font-weight: bold;
-            font-size: 1.4rem;
-            color: var(--secondary-color);
-            line-height: 25px;
-            text-align: center;
-        }
-    }
     .searchResults{
         display: flex;
         flex-direction: column;
@@ -720,28 +697,6 @@ main {
             line-height: 30px;
             margin-bottom: 2.5rem;
         }
-        .emptySection{
-            display: flex;
-            flex-flow: column wrap;
-            margin: 2rem 2rem 4rem;
-            @include respond-to(desktop-screen, xlg-screen){
-                margin-bottom: 8rem;
-            }
-            img{
-                margin: 2rem;
-                @include respond-to(desktop-screen, xlg-screen){
-                    margin: 4rem 2rem 1.8rem 2rem;
-                }           
-            }
-            span{
-                font-family: 'Montserrat', sans-serif;
-                font-weight: bold;
-                font-size: 1.4rem;
-                color: var(--secondary-color);
-                line-height: 25px;
-                text-align: center;
-            }
-        }
         .gifCtn{
             width: 100%; 
             display: flex;
@@ -910,7 +865,7 @@ main {
                     }
                     h4{
                         font-family: 'Montserrat', sans-serif;
-                        font-size: bold;
+                        font-weight: bold;
                         font-size: 25px;
                         color: var(--primary-color);
                         text-align: center;
@@ -1027,6 +982,29 @@ main {
 
     .hiddenClass{
         display: none;
+    }
+
+    .emptySection{
+        display: flex;
+        flex-flow: column wrap;
+        margin: 2rem 2rem 4rem;
+        @include respond-to(desktop-screen, xlg-screen){
+            margin-bottom: 8rem;
+        }
+        img{
+            margin: 2rem;
+            @include respond-to(desktop-screen, xlg-screen){
+                margin: 4rem 2rem 1.8rem 2rem;
+            }           
+        }
+        span{
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--secondary-color);
+            line-height: 25px;
+            text-align: center;
+        }
     }
 
     .loading {
@@ -1183,9 +1161,6 @@ footer{
         @include respond-to(desktop-screen){
             display: flex;
             flex-direction: row;
-        }
-        h4 {
-            display: none;
         }
         //redes sociales
         .socialNetworks{

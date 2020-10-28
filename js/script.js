@@ -34,8 +34,9 @@ searchBarCtn.addEventListener('focusout', () => {
 crossIcon.addEventListener('mousedown', () => {
     searchInput.value = '';
     searchSuggestionsCtn.textContent = '';
-    gifFoundContainer.textContent = ''; //preguntar sobre esto a Mati :)
+    gifFoundContainer.textContent = '';
     resultsSection.classList.add('hiddenClass');
+    searchTitle.textContent = '';
 });
 
 //click en el icono lupa hace la búsqueda
@@ -76,8 +77,6 @@ async function autoCompletar() {
         let searchWords = await fetch(`https://api.giphy.com/v1/gifs/search/tags?q=${this.value}&api_key=${apiKey}`); //llamada al endpoint de autocompletar para traer las etiquetas
 
         let response = await searchWords.json(); //parseamos las respuestas obtenidas
-
-        console.log(response);
 
         searchSuggestionsCtn.textContent = ''; //se vacía por completo el contenedor
 
@@ -123,6 +122,7 @@ let gifFoundContainer = document.getElementById('gifFoundContainer');
 //seccion de resultados, creada con clase hidden en un principio, sólo aparece cuando se realiza una búsqueda.
 let resultsSection = document.getElementById('searchResultsSection');
 let searchTitle = document.getElementById('searchTitle');
+let emptyMessageSearch = document.getElementById('emptyMessageSearch');
 //botón ver más
 let moreBtn = document.getElementById('moreBtn');
 let cantidadClicks = 0;
@@ -148,16 +148,14 @@ async function makeSearch(search) {
         resultsSection.classList.remove('hiddenClass');
 
         //si la búsqueda no tiene resultados, mostrar en pantalla imagen y aviso
-        if(responseParsed.data.length === 0){
-
-            gifFoundContainer.classList.add('hiddenClass');
-            resultsSection.children[1].classList.remove('hiddenClass');
-            moreBtn.classList.add('hiddenClass');
-            return;
-
-        }else {
-            resultsSection.children[1].classList.add('hiddenClass');
-            moreBtn.classList.remove('hiddenClass');
+        if(responseParsed.data.length === 0 || responseParsed.data === null){
+            emptyMessageSearch.classList.remove('hiddenClass');
+            emptyMessageSearch.classList.add('emptySection');
+            moreBtn.classList.add("hiddenClass");
+        }else{
+            emptyMessageSearch.classList.add('hiddenClass');
+            emptyMessageSearch.classList.remove('emptySection');
+            moreBtn.classList.remove("hiddenClass");
         }
         
         responseParsed.data.forEach((gif) => {
@@ -276,7 +274,7 @@ async function showTrendingGifs() {
         });
 
     } catch (error) {
-        console.log(`Trending Gifs: \n${error}`);
+        console.log(error);
     }
 }
 

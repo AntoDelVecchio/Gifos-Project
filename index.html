@@ -24,8 +24,12 @@
                         Modo Nocturno
                     </label>
                 </li>
-                <li><a href="#" id="favoritosBtn">Favoritos</a></li>
-                <li><a href="#" id="misGifosBtn">Mis GIFOS</a></li>
+                <li>
+                    <a href="#" id="favoritosBtn">Favoritos</a>
+                </li>
+                <li>
+                    <a href="#" id="misGifosBtn">Mis GIFOS</a>
+                </li>
                 <!-- botón crear gifo disponible sólo para versión en desktop -->
                 <li>
                     <button id="btnCrearGifo" class="btnCrearGifo">
@@ -37,6 +41,7 @@
     </header>
     <!-- Fin header section -->
     <main>
+        <!-- sección de búsquedas -->
         <section id="introduction" class="introduction">
             <h1>Inspírate, busca, guarda, y crea los mejores <span>gifos</span></h1>
             <div class="searchSection">
@@ -46,7 +51,6 @@
                         <i id="crossIcon" class="fas fa-times crossIcon"></i>
                         <input id="searchInput" class="searchInput" type="text"  placeholder="Busca GIFOS y más">
                         <i id="lensIcon" class="fas fa-search lensIcon"></i>
-                        <label for="search"></label>
                     </div>
                     <!-- contenedor creado para apendear via JS las palabras sugeridas -->
                     <div id="suggestionsCtn" class="suggestionsCtn"></div>
@@ -56,12 +60,9 @@
                 <h3>Trending:</h3>
             </article>
         </section>
+        <!-- sección de gifs buscados -->
         <section id="searchResultsSection" class="searchResults hiddenClass" >
-            <h2 id="searchTitle" class="searchedWord"></h2>
-            <div class="emptySearch hiddenClass">
-                <img src="images/iconBusquedaSinResultado.svg" alt="ouch!">
-                <span>Intenta con otra búsqueda.</span>
-            </div>
+            <h2 id="searchTitle" class="searchedWord">Palabra buscada</h2>
             <!-- tarjeta gif -->
             <div id="gifFoundContainer" class="searchResultCtn">
                 <template id="gifCardTemplate">
@@ -88,7 +89,12 @@
                 </template>
             </div>
             <button id="moreBtn">Ver más</button>
+            <div id="emptyMessageSearch" class="hiddenClass">
+                <img src="images/iconBusquedaSinResultado.svg" alt="ouch!">
+                <span>Intenta con otra búsqueda.</span>
+            </div>
         </section>
+        <!-- sección gifs favoritos -->
         <section id="favsSection" class="section hiddenClass">
             <img src="images/iconFavoritos.svg" alt="favIcon">
             <h2>Favoritos</h2>
@@ -101,6 +107,7 @@
                 <span>"¡Guarda tu primer GIFO en Favoritos <br> para que se muestre aquí!"</span>
             </div>
         </section>
+        <!-- sección gifs creados -->
         <section id="misGifosSection" class="section hiddenClass">
             <img src="images/iconMisGifos.svg" alt="mis gifos icon">
             <h2>Mis GIFOS</h2>
@@ -113,7 +120,9 @@
                 <span>¡Anímate a crear tu primer GIFO!</span>
             </div>
         </section>
+        <!-- sección crear gifs -->
         <section id="createGifSection" class="createGif hiddenClass">
+            <h4 class="hiddenClass">Crea tu propio Gif</h4>
             <div class="lightsCameraAction">
                 <img class="camImage" id="camImage" src="images/camara.svg" alt="cam">
                 <img class="lightImage" src="images/luzCamara.svg" alt="light">
@@ -134,7 +143,7 @@
                             </button>
                         </div>
                     </div>
-                    <video id="gif-captor" class="hiddenClass" src="" autoplay></video>
+                    <video id="gif-captor" class="hiddenClass" autoplay></video>
                     <span class="corner-left corner-bottom"></span>
                     <span class="corner-right corner-bottom"></span>
                     <h4 id="titleCreateGif">Aquí podrás <br> crear tus propios GIFOS</h4>
@@ -152,13 +161,13 @@
                    <span></span>
                 </div>
             </div>
-            <article class="bottomLine"></article>
+            <div class="bottomLine"></div>
             <img class="pelicula" id="tapeImage" src="images/pelicula.svg" alt="peliculaImage">
             <div class="startBtnContainer">
                 <button id="startBtn" class="startBtn">Comenzar</button>
             </div>
-
         </section>
+        <!-- sección carousel -->
         <section id="trendGifos" class="trendGifos">
             <h2>Trending GIFOS</h2>
             <p>Mira los últimos <br>GIFOS de nuestra comunidad.</p>
@@ -180,7 +189,7 @@
     <!-- fin main section -->
     <footer>
         <section class="additionalInfo">
-            <h4>Redes Sociales</h4>
+            <h4 class="hiddenClass">Redes Sociales</h4>
             <article class="socialNetworks">
                 <h3>Compartir en:</h3>
                 <div>
@@ -195,6 +204,7 @@
         </section>
     </footer>
     <!-- fin footer section -->
+    <!-- scripts -->
     <script src="js/script.js"></script>
     <script src="js/modoNocturno.js"></script>
     <script src="js/crearGifos.js"></script>

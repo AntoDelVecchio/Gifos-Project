@@ -6,6 +6,7 @@ let textCreateGif = document.getElementById('textCreateGif');
 const video = document.getElementById("gif-captor");
 let counter = document.getElementById('counter');
 let reRecordBtn = counter.children[0];
+let gifBlob = null;
 let createOverlay = document.querySelector('#overlay');
 let misGifosArray = JSON.parse(localStorage.getItem('misGifos'));
 let favsCtn = document.getElementById('favsCtn');
@@ -128,7 +129,6 @@ function thirdStage() {
 	});
     counter.children[0].classList.add('counter');
 	counter.classList.remove('hiddenClass');
-    // reRecordBtn.textContent	 = '00:00:00';
 	startBtn.textContent = 'finalizar';
 	StageCounter++;
 }
@@ -138,7 +138,9 @@ function fourthtStage() {
     //Resetear todos los botones al estado correspondiente
     recorder.stopRecording(onStop);
 	
-	gif = recorder.getBlob();
+    gif = recorder.getBlob();
+    
+    gifBlob = gif;
 
 	startBtn.textContent = 'subir gifo';
 	reRecordBtn.textContent = 'repetir captura';
@@ -170,14 +172,12 @@ async function fifthStage() {
     });
 
     let data = await response.json();
-    console.log(data.data);
 
     uploadComplete();
 
 	misGifosArray.push(data.data.id);
 
     localStorage.setItem('misGifos', JSON.stringify(misGifosArray));
-    console.log(localStorage);
 
 	counter.classList.add('hiddenClass');
 	counter.classList.remove('counter');
@@ -186,13 +186,12 @@ async function fifthStage() {
     filmStage3.classList.add('isCurrent');
     
     let downloadMiGifo = document.getElementById('downloadMiGifo');    
-    downloadMiGifo.addEventListener('click', downloadGif);
+    downloadMiGifo.addEventListener('click', downloadMiGifCreado);
 }
 
 function onStop() {
     //generar archivo para subir
     stoppedFlag = true;
-    console.log('yuuupi!!');
 }
 
 
@@ -235,7 +234,6 @@ moreMisGifosBtn.addEventListener("click", () => {
     showGifos(misGifosArray, misGifosCtn, moreMisGifosBtn)
 });
 
-// let button = document.getElementById
 let contadorSeeMore = 0;
 
 async function showGifos(gifosArray, container, button) {
@@ -311,21 +309,20 @@ function removeFavorite() {
 function removeGifCardFromDOM(gifCard) {
     let ctn = gifCard.parentElement.parentElement;
     console.log(ctn);
-    console.log(gifCard);
-	gifCard.remove();
+    if(!ctn.classList.contains('carouselCtn') && !ctn.classList.contains('searchResults')){
+        gifCard.remove();
+    };
 	if (ctn.children.length === 0) {
-		ctn.parentElement.classList.add("hidden");
-        ctn.parentElement.nextElementSibling.classList.add("hidden");
-        ctn.parentElement.children[4].classList.remove('hiddenClass');
+		ctn.parentElement.classList.add("hiddenClass");
+        ctn.parentElement.nextElementSibling.classList.add("hiddenClass");
 	}
 }
-
-let gifoId = misGifosArray[misGifosArray.length-1];
 
 let gifShare = document.getElementById('gifShare');
 gifShare.addEventListener('click', copyURLToClipboard);
 
 function copyURLToClipboard() { //Copia al cortapapeles el link del gif en Giphy.
+    let gifoId = misGifosArray[misGifosArray.length-1];
     var input = document.createElement('input');
     document.body.appendChild(input)
     input.value = `https://giphy.com/gifs/${gifoId}`;
@@ -333,4 +330,13 @@ function copyURLToClipboard() { //Copia al cortapapeles el link del gif en Giphy
     document.execCommand("copy");
     input.remove();
     alert('Link copiado');
+}
+
+function downloadMiGifCreado() {
+    const a = document.createElement('a');
+    const file = gifBlob;
+    a.download = `${this.dataset.title}.gif`;
+    a.href = window.URL.createObjectURL(file);
+    a.dataset.downloadurl = ['application/octet-stream', a.download, a.href].join(':');
+    a.click()
 }
